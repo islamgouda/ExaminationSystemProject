@@ -15,7 +15,7 @@ namespace ExaminationSystemProject.Controllers
         {
             Questionpool questionpool = new Questionpool();
             questionpool.Questiontxt = "c++ is ";
-            questionpool.CourseId = 2;
+            questionpool.CourseId = 4;
             questionpool.Degree = 10;
             questionpool.Correctanswer= "oop lang";
             questionpool.Type = "ms";

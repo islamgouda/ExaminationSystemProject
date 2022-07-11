@@ -1,0 +1,11 @@
+﻿@model List<Exam>
+@{
+    foreach (var item in @Model)
+    {
+        <h1>@item.Id</h1>
+        <h1>@item.degree</h1>
+        <h1>@item.Start</h1>
+        <h1>@item.End</h1>
+        
+    }
+}

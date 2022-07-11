@@ -16,7 +16,7 @@ namespace ExaminationSystemProject.Models
         [Required]
         [Range(25, 100)]
 
-        public int MaxDegree { get; set; }
+        public int? MaxDegree { get; set; }
 
         public string? Description { get; set; }
 
@@ -30,7 +30,7 @@ namespace ExaminationSystemProject.Models
 
         [ForeignKey("Instructor")]
 
-        public int InstructorID { get; set; }
+        public int? InstructorID { get; set; }
 
         public virtual Instructor? Instructor { get; set; }
 
