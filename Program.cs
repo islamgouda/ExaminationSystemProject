@@ -11,11 +11,14 @@ builder.Services.AddScoped<IQuestion, QuestionRepository>();
 builder.Services.AddScoped<IExam, ExamRespository>();
 builder.Services.AddDbContext<Context>(optionsBuilder =>
 {
-    optionsBuilder.UseSqlServer(@"Data source =DESKTOP-JT45RDG;Initial Catalog =myExamination; Integrated security=true");
+    optionsBuilder.UseSqlServer(@"Data source =.;Initial Catalog =myExamination; Integrated security=true");
 });
 
 builder.Services.AddScoped<ICourseReprository, CourseReprository>();
 builder.Services.AddScoped<IRegisterRepository, RegisterRepository>();
+
+builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+builder.Services.AddScoped<IStudentExamRepository, StudentExamRepository>();
 
 
 

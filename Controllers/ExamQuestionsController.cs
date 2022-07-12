@@ -13,10 +13,12 @@ namespace ExaminationSystemProject.Controllers
         [HttpPost]
         public IActionResult AddQuestionsToExam(ExamQuestions eX)
         {
-            context.ExamQuestions.Add(eX);
-            int id = eX.ExamID;
-            context.SaveChanges();
-            return RedirectToAction ("SelectQuestions","Exam",new {id=id});
+            
+                context.ExamQuestions.Add(eX);
+                int id = eX.ExamID;
+                context.SaveChanges();
+                return RedirectToAction("SelectQuestions", "Exam", new { id = id });
+            
         }
     }
 }
