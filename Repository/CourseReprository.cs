@@ -1,4 +1,5 @@
 ﻿using ExaminationSystem.Models;
+using ExaminationSystemProject.Models;
 
 namespace ExaminationSystem.Reprository
 {
@@ -18,16 +19,16 @@ namespace ExaminationSystem.Reprository
 
         public void Delete(int Id)
         {
-            Course course = context.Employees.Find(Id);
+            Course course = context.Courses.Find(Id);
 
-            context.Courses.Add(course);
+            context.Courses.Remove(course);
             context.SaveChanges();
 
         }
 
         public void Edit(int Id, Course course)
         {
-            context.Employees.Update(course);
+            context.Courses.Update(course);
             context.SaveChanges();
 
         }
