@@ -20,7 +20,7 @@ namespace ExaminationSystemProject.Repository
         {
             return context.Questionpools.ToList();
         }
-
+      
         public List<Questionpool> GetAllByCourseID(int courseID)
         {
             return context.Questionpools.Where(e=>e.CourseId==courseID).ToList();   

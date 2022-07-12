@@ -7,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IQuestion, QuestionRepository>();
+builder.Services.AddScoped<IExam, ExamRespository>();
 builder.Services.AddDbContext<Context>(optionsBuilder =>
 {
     optionsBuilder.UseSqlServer(@"Data source =DESKTOP-JT45RDG;Initial Catalog =myExamination; Integrated security=true");
