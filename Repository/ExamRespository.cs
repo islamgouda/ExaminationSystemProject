@@ -35,13 +35,15 @@ namespace ExaminationSystemProject.Repository
 
         public Exam GetById(int id)
         {
-            throw new NotImplementedException();
+            Exam x = context.Exams.FirstOrDefault(i => i.Id == id);
+            return x;
         }
 
         public void insert(Exam exam)
         {
             context.Exams.Add(exam);
             context.SaveChanges();
+            //return (exam.id)
         }
         public void AddQuestionsToExam(int EID, int QID)
         {

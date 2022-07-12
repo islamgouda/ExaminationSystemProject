@@ -1,0 +1,26 @@
+﻿@model Exam
+@{
+    ViewData["Title"] = "SelectQuestions";
+    List<Questionpool> xx = ViewBag.Questions;
+
+}
+
+<h1>@Model.Id</h1>
+<form method="post" action="/ExamQuestions/AddQuestionsToExam">
+     <label>Question Number</label><br />
+     <input type="checkbox" name="QuestID" value="" /><br />
+     <label>Exam Number</label><br />
+     <input name="ExamID" value="@Model.Id" /><br />
+     <input type="submit" class="btn btn-primary" value="Add" />
+</form>
+<table class="table table-bordered">
+@foreach (var item in xx)
+{
+   <tr>
+    <td>  @item.ID</td> 
+    <td>   @item.Questiontxt  </td> 
+   </tr>
+}
+</table> 
+
+
