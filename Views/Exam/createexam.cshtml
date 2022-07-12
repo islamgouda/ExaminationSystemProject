@@ -1,0 +1,49 @@
+﻿@{
+    ViewData["Title"] = "New";
+    SelectList CourseList = new SelectList(ViewBag.CourseList, "ID", "Name");
+}
+<h1>New Exam</h1>
+<form method="post" action="/Exam/createnew/">
+<label>Course ID</label><br/>
+<select name="CourseId" id="Course" class="form-control" asp-items="CourseList" onchange="GetStudentsData()">
+        <option>--Select Course--</option>
+</select>
+@*<select  id="A" class="form-control"  onchange="GetStudentsData2()">
+        <option>--Select Questions--</option>
+</select>*@
+ <label>Degree</label><br />
+ <input name="degree"  /><br />
+  <label>Start Time</label><br />
+ <input name="Start" id="dt1" /><br />
+  <label>End Time</label><br />
+ <input name="End" id="dt1"  /><br />
+ <label>Your ID</label><br />
+ <input name="InstructorId"  /><br />
+ <input type="submit" class="btn btn-primary" value="Create" />
+</form>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    function GetStudentsData() {
+        var deptId = document.getElementById("Course").value;
+                                console.log(deptId);
+
+      /*  $.ajax(
+            {
+                url: "/question/GetQuestions",
+                data: { "CourseID": deptId },
+                success: function (result) {
+                   // document.getElementById("A").innerHTML = "";
+                    for (let std of result) {
+                        document.getElementById("A").innerHTML +=
+                            //"<Button class="btn"> +std["questiontxt"]+ </Button>" ;
+                            //"<a value="+std["id"]+" />"+ std["questiontxt"]+"</br>" ;
+                            //"<label>"+std["questiontxt"]+"</label>"+"<br />"
+                            "<option value="+std["id"]+" >" + std["questiontxt"] + "</option>";
+                        console.log(std);
+                    }
+                }
+            }*/
+        );
+    }
+    </script>
+

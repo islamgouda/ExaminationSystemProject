@@ -26,7 +26,7 @@ namespace ExaminationSystemProject.Controllers
             //answer.ans4txt = "ff";
             //QuestionRepository qs = new QuestionRepository(new Context());
             //qs.insert(questionpool,answer);
-            List<Questionpool> questionpools = new List<Questionpool>();
+            List<Questionpool> questionpools = question.GetAll();
             return View(questionpools);
             
         }
