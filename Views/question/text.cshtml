@@ -1,0 +1,45 @@
+﻿@model ExaminationSystemProject.ViewModel.txtQuestion
+
+@{
+    ViewData["Title"] = "text";
+}
+
+<h1>text</h1>
+
+<h4>txtQuestion</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="text">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Questiontxt" class="control-label"></label>
+                <input asp-for="Questiontxt" class="form-control" />
+                <span asp-validation-for="Questiontxt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Correctanswer" class="control-label"></label>
+                <input asp-for="Correctanswer" class="form-control" />
+                <span asp-validation-for="Correctanswer" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Degree" class="control-label"></label>
+                <input asp-for="Degree" class="form-control" />
+                <span asp-validation-for="Degree" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CourseId" class="control-label"></label>
+                <input asp-for="CourseId" class="form-control" />
+                <span asp-validation-for="CourseId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

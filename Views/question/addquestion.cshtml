@@ -1,0 +1,17 @@
+﻿@model List<string>
+@{
+    ViewData["Title"] = "addquestion";
+}
+
+<h1>Select Question Type</h1>
+<form action="/question/addnewquestion"  method="post">
+
+    <select class="form-control" name="type">
+        
+    <option value="tf">TrueFalse</option>
+    <option value="ms">MultiChoose Question</option>
+    <option value="txt">Text Question</option>
+</select>
+<input type="submit" class="btn-success" value="submit" />
+</form>
+
