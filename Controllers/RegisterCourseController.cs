@@ -16,11 +16,6 @@ namespace ExaminationSystemProject.Controllers
 
 
 
-        public IActionResult CourseRegister()
-        {
-           // ViewBag.Courses=
-
-            return View();
-        }
+       
     }
 }
