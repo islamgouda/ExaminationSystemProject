@@ -1,0 +1,53 @@
+﻿@model Course
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+<h1>Add New Course</h1>
+
+<form method="post" asp-controller="Course" asp-action="Create">
+    
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+
+    <div>
+        <label asp-for="Name"></label>
+        <input asp-for="Name" type="text" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+
+    <div>
+        <label asp-for="MaxDegree"></label>
+        <input asp-for="MaxDegree" type="number" class="form-control" />
+        <span asp-validation-for="MaxDegree" class="text-danger"></span>
+    </div>
+
+
+    <div>
+        <label asp-for="MinDegree"></label>
+        <input asp-for="MinDegree" type="number" class="form-control" />
+        <span asp-validation-for="MinDegree" class="text-danger"></span>
+    </div>
+
+
+     <div>
+        <label asp-for="Description"></label>
+        <input asp-for="Description" type="text" class="form-control" />
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+
+     <div>
+        <label asp-for="InstructorID"></label>
+        <input asp-for="InstructorID" type="number" class="form-control" />
+        <span asp-validation-for="InstructorID" class="text-danger"></span>
+    </div>
+
+
+    <input type="submit" vlaue="Create" class="btn btn-success" />
+
+
+</form>

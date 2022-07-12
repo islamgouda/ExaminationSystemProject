@@ -1,3 +1,4 @@
+using ExaminationSystem.Reprository;
 using ExaminationSystemProject.Models;
 using ExaminationSystemProject.Repository;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +13,12 @@ builder.Services.AddDbContext<Context>(optionsBuilder =>
 {
     optionsBuilder.UseSqlServer(@"Data source =DESKTOP-JT45RDG;Initial Catalog =myExamination; Integrated security=true");
 });
+
+builder.Services.AddScoped<ICourseReprository, CourseReprository>();
+builder.Services.AddScoped<IRegisterRepository, RegisterRepository>();
+
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
