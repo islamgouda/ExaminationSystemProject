@@ -21,8 +21,8 @@ namespace ExaminationSystemProject.Models
         public DateTime End { set; get; }
         public int degree { set; get; }
         public List<ExamQuestions> ExamQuestions { set; get; }
-        public Instructor? Instructor { set; get; }
-        public Course? Course { set; get; }
+        public Instructor Instructor { set; get; }
+        public Course Course { set; get; }
 
     }
 }

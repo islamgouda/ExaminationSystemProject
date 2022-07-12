@@ -1,4 +1,5 @@
 ﻿using ExaminationSystemProject.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ExaminationSystemProject.Repository
 {
@@ -10,6 +11,7 @@ namespace ExaminationSystemProject.Repository
             context= _context;
 
         }
+        
         public void Delete(int id)
         {
             throw new NotImplementedException();
@@ -17,7 +19,8 @@ namespace ExaminationSystemProject.Repository
 
         public List<Exam> GetAll()
         {
-            return context.Exams.ToList();
+            return context.Exams.Include(c => c.Course).Include(d=>d.Instructor).ToList();
+            
         }
 
         public List<Exam> GetAllExamsByCourseID(int id)
@@ -37,7 +40,16 @@ namespace ExaminationSystemProject.Repository
 
         public void insert(Exam exam)
         {
-            throw new NotImplementedException();
+            context.Exams.Add(exam);
+            context.SaveChanges();
+        }
+        public void AddQuestionsToExam(int EID, int QID)
+        {
+            ExamQuestions E = new ExamQuestions();
+            E.ExamID = EID;
+            E.QuestID = QID;
+            context.ExamQuestions.Add(E);
+            context.SaveChanges();
         }
 
         public void Update(int id, Exam exam)

@@ -1,11 +1,28 @@
 ﻿@model List<Exam>
 @{
-    foreach (var item in @Model)
+    <table class="table table-bordered">
+     <tr>
+        <td>Exam Id</td>
+        <td>Exam degree</td>
+        <td>Exam Date</td>
+        <td>Start Time</td>
+        <td>End Time</td>
+        <td>Course Name</td>
+        <td>Instructor Name</td>
+        </tr>
+    @foreach (var item in @Model)
     {
-        <h1>@item.Id</h1>
-        <h1>@item.degree</h1>
-        <h1>@item.Start</h1>
-        <h1>@item.End</h1>
+        <tr>
+        <td>@item.Id</td>
+        <td>@item.degree</td>
+        <td>@item.Start.ToString("dd MMMM  yyyy")</td>
+        <td>@item.Start.Hour</td>
+        <td>@item.End.Hour</td>
+        <td>@item.Course.Name</td>
+        <td>@item.Instructor.Name</td>
+        
+        </tr>
         
     }
+      </table>
 }

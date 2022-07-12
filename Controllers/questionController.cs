@@ -13,23 +13,30 @@ namespace ExaminationSystemProject.Controllers
         }
         public IActionResult Index()
         {
-            Questionpool questionpool = new Questionpool();
-            questionpool.Questiontxt = "c++ is ";
-            questionpool.CourseId = 4;
-            questionpool.Degree = 10;
-            questionpool.Correctanswer= "oop lang";
-            questionpool.Type = "ms";
-            Answer answer = new Answer();
-            answer.ans1txt = "oop lang";
-            answer.ans2txt = "assembly";
-            answer.ans3txt = "web lang";
-            answer.ans4txt = "ff";
-            QuestionRepository qs = new QuestionRepository(new Context());
-            qs.insert(questionpool,answer);
-
-            return Content("hello");
+            //Questionpool questionpool = new Questionpool();
+            //questionpool.Questiontxt = "c++ is ";
+            //questionpool.CourseId = 4;
+            //questionpool.Degree = 10;
+            //questionpool.Correctanswer= "oop lang";
+            //questionpool.Type = "ms";
+            //Answer answer = new Answer();
+            //answer.ans1txt = "oop lang";
+            //answer.ans2txt = "assembly";
+            //answer.ans3txt = "web lang";
+            //answer.ans4txt = "ff";
+            //QuestionRepository qs = new QuestionRepository(new Context());
+            //qs.insert(questionpool,answer);
+            List<Questionpool> questionpools = new List<Questionpool>();
+            return View(questionpools);
             
         }
+        Context c = new Context();
+        public IActionResult GetQuestions(int CourseID)
+        {
+            return Json(c.Questionpools.Where(i => i.CourseId == CourseID).ToList());
+        }
+        
+
         [HttpGet]
         public IActionResult addquestion()
         {
