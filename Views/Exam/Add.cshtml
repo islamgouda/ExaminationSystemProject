@@ -4,7 +4,7 @@
     SelectList CourseList = new SelectList(ViewBag.CourseList, "ID", "Name");
 }
 <h1>New Exam</h1>
-<form method="post" action="/Exam/SaveNew">
+<form method="post" action="/Exam/SaveNew/">
 <label>Course ID</label><br/>
 <select name="CourseId" id="Course" class="form-control" asp-items="CourseList" onchange="GetStudentsData()">
         <option>--Select Course--</option>

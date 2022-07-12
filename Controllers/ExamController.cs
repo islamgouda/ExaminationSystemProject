@@ -32,9 +32,15 @@ namespace ExaminationSystemProject.Controllers
             if (e.CourseId != null)
             {
                 exam.insert(e);
-                return RedirectToAction("Index");
+                return RedirectToAction("SelectQuestions");
             }
             return View("New", e);
+        }
+        public IActionResult SelectQuestions(int id)
+        {
+            Exam x=exam.GetById(id);
+            ViewData["Questions"] = context.Questionpools.Where(c => c.CourseId == x.CourseId).ToList();
+            return View(x);
         }
 
     }
