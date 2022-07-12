@@ -32,7 +32,7 @@ namespace ExaminationSystemProject.Controllers
             if (e.CourseId != null)
             {
                 exam.insert(e);
-                return RedirectToAction("SelectQuestions");
+                return RedirectToAction("Index");
             }
             return View("New", e);
         }

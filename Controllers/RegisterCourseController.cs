@@ -18,7 +18,7 @@ namespace ExaminationSystemProject.Controllers
 
         public IActionResult CourseRegister()
         {
-            ViewBag.Courses=
+           // ViewBag.Courses=
 
             return View();
         }
