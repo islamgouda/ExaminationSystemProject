@@ -10,7 +10,7 @@ namespace ExaminationSystemProject.Models
         public string Correctanswer { get;set; }
         public int Degree { get; set; }
         [ForeignKey("course")]
-        public int CourseId { get; set; }
+        public int? CourseId { get; set; }
         public Course? course { get; set; }
     }
 }

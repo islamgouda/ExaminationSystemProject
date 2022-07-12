@@ -1,0 +1,21 @@
+﻿@model Course
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+<h1>Details</h1>
+<ul>
+    <li>Name: @Model.Name</li>
+    <li>Maximum Degree: @Model.MaxDegree</li>
+    <li>Minimum Degree: @Model.MinDegree</li>
+    <li>Description:  @Model.Description</li>
+    <li>InstructorID: @Model.InstructorID</li>
+
+
+
+
+</ul>
+<a href="/Course/Index">Back To List</a>
+

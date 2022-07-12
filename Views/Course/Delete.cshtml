@@ -1,0 +1,23 @@
+﻿@model Course
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+<h3>Are you sure to Delete this ? </h3>
+
+<ul>
+    <li>Name: @Model.Name</li>
+    <li>Maximum Degree: @Model.MaxDegree</li>
+    <li>Minimum Degree: @Model.MinDegree</li>
+    <li>Description:  @Model.Description</li>
+    <li>InstructorID: @Model.InstructorID</li>
+
+</ul>
+<form method="post" asp-controller="Course" asp-action="DeleteConfirmed">
+    <input type="hidden" asp-for="ID"/>
+    <input type="submit" value="Delete" class="btn btn-danger"/>
+</form>
+
+<a href="/Course/Index">Back To List</a>
+

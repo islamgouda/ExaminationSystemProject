@@ -1,0 +1,41 @@
+﻿@model List<Course>
+@{
+    ViewData["Title"] = "Index";
+}
+    
+<h1>Index</h1>
+
+<a href="/Course/Create"  class="btn btn-success">New Course</a>
+
+
+<form asp-controller="Course" asp-action="Index">
+
+    <table class="table table-borderd table-hover">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Maximum Degree</th>
+        <th>Minimum Degree</th>
+        <th>Description</th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>@item.ID</td>
+        <td>@item.Name</td>
+        <td>@item.MaxDegree</td>
+        <td>@item.MinDegree</td>
+        <td>@item.Description</td>
+        <td><a href="/Course/Details/@item.ID">Deatils</a>  
+            | 
+            <a href="/Course/Edit/@item.ID">Edit</a>
+            |
+            <a href="/Course/Delete/@item.ID">Delete</a></td>
+
+    </tr>
+}
+
+</table>
+</form>
