@@ -13,8 +13,5 @@ namespace ExaminationSystem.Reprository
 
         void Delete(int Id);
 
-
-
-
     }
 }
