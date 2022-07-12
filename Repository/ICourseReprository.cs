@@ -1,5 +1,4 @@
-﻿using ExaminationSystem.Models;
-
+﻿using ExaminationSystemProject.Models;
 
 namespace ExaminationSystem.Reprository
 {
