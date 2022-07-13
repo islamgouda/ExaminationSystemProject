@@ -1,5 +1,6 @@
 ﻿using ExaminationSystemProject.Models;
 using ExaminationSystemProject.Repository;
+using ExaminationSystemProject.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -31,13 +32,14 @@ namespace ExaminationSystemProject.Controllers
         {
             if (e.CourseId != null)
             {
-                exam.insert(e);
-                return RedirectToAction("Index");
+               int id= exam.insert(e);
+                return RedirectToAction("SelectQuestions",new {id=id});
             }
             return View("New", e);
         }
         public IActionResult SelectQuestions(int id)
         {
+            SelectQuestionViewModel Model = new SelectQuestionViewModel();
             Exam x=exam.GetById(id);
             ViewData["Questions"] = context.Questionpools.Where(c => c.CourseId == x.CourseId).ToList();
             return View(x);

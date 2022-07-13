@@ -39,11 +39,11 @@ namespace ExaminationSystemProject.Repository
             return x;
         }
 
-        public void insert(Exam exam)
+        public int insert(Exam exam)
         {
             context.Exams.Add(exam);
             context.SaveChanges();
-            //return (exam.id)
+            return (exam.Id);
         }
         public void AddQuestionsToExam(int EID, int QID)
         {
