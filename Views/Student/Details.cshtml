@@ -31,9 +31,9 @@
     </dl>
 </div>
 <div>
-    <a asp-action="RegisterCourse">Register New Course </a> | 
-    <a>My Courses </a> | 
-    <a>My Exams </a> | 
+    <a asp-action="RegisterCourse" asp-route-id="@Model.ID">Register New Course </a> | 
+    <a asp-action="ShowCourses" asp-route-id="@Model.ID">My Courses </a> | 
+    <a asp-action="ShowExams" asp-route-id="@Model.ID">My Exams </a> | 
 </div>
 <div>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
