@@ -65,5 +65,10 @@ namespace ExaminationSystemProject.Repository
             context.SaveChanges();
             return exam.Id;
         }
+        public Exam GetByStudentIdWithCourse(int examID)
+        {
+            Exam exam = context.Exams.Include(c => c.Course).FirstOrDefault(i => i.Id == examID);
+            return exam;
+        }
     }
 }
