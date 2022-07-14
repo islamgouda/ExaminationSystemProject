@@ -35,10 +35,16 @@ namespace ExaminationSystemProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginUserViewModel UserVM)
         {
+
             if (ModelState.IsValid==true)
+
             {
+
+                //string id = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+
+
                 //Check
-            ApplicationUser userModel=  await  userManager.FindByNameAsync(UserVM.userName);
+                ApplicationUser userModel=  await  userManager.FindByNameAsync(UserVM.userName);
                 if (userModel != null)
                 {
                    bool found= await userManager.CheckPasswordAsync(userModel, UserVM.Password);
@@ -106,12 +112,15 @@ namespace ExaminationSystemProject.Controllers
                 {
 
                     List<Claim> claims = new List<Claim>();
+                    claims.Add(new Claim("UserId", userModel.UserId.ToString()));
+
 
 
                     //createCookie
-                    await signInManager.SignInAsync(userModel, isPersistent: false);
+                    await signInManager.SignInWithClaimsAsync (userModel, isPersistent: false,claims);
+                    string name = User.Identity.Name;
 
-                    return RedirectToAction("Login");
+                    return RedirectToAction("Test");
                 }
 
                 else
@@ -134,6 +143,14 @@ namespace ExaminationSystemProject.Controllers
             await signInManager.SignOutAsync();
             return RedirectToAction("Login", "Account");
         }
+
+        public  IActionResult Test()
+        {
+            var result = User.FindFirst("UserId").Value;
+
+            return Content(result);
+        }
+
 
 
     }
