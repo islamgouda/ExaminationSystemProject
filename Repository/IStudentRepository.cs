@@ -10,7 +10,7 @@ namespace ExaminationSystemProject.Repository
         List<Student> GetAllWithCourses();
         Student GetWithCourse(int Id);
         void Insert(Student Student);
-
+       int InsertWithId(Student Student);
         void Edit(int Id, Student Student);
 
         void Delete(int Id);

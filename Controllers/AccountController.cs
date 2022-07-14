@@ -1,7 +1,10 @@
 ﻿using ExaminationSystemProject.Models;
+using ExaminationSystemProject.Repository;
 using ExaminationSystemProject.ViewModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using MVC.Reposatories;
+using System.Security.Claims;
 
 namespace ExaminationSystemProject.Controllers
 {
@@ -10,11 +13,15 @@ namespace ExaminationSystemProject.Controllers
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> signInManager;
+        IInstructorReposatory InstructorReposatory;
+        private readonly IStudentRepository studentRepository;
 
-        public AccountController(UserManager<ApplicationUser> _userManager,SignInManager<ApplicationUser> signInManager)
+        public AccountController(UserManager<ApplicationUser> _userManager,SignInManager<ApplicationUser> signInManager,IInstructorReposatory _instructorReposatory, IStudentRepository _studentRepository)
         {
             userManager = _userManager;
             this.signInManager = signInManager;
+            InstructorReposatory = _instructorReposatory;
+            studentRepository = _studentRepository;
         }
 
 
@@ -69,15 +76,42 @@ namespace ExaminationSystemProject.Controllers
                 userModel.UserName = newUserVM.UserName;
                 userModel.PasswordHash = newUserVM.Password;
                 userModel.Address = newUserVM.Address;
-                
-                IdentityResult result= await userManager.CreateAsync(userModel,newUserVM.Password);
+                userModel.Type = newUserVM.Type;
+                if (userModel.Type == "Instructor")
+                {
+                    Instructor instructor = new Instructor();
+                    instructor.Name = newUserVM.UserName;
+                    instructor.Address = newUserVM.Address;
+                    int instID = InstructorReposatory.InsertWithId(instructor);
+                    
+                    userModel.UserId=instID;
+                }
+
+
+               else if (userModel.Type == "Student")
+                {
+                    Student student  = new Student();
+                    student.Name = newUserVM.UserName;
+                    student.Address = newUserVM.Address;
+                    int stID =studentRepository.InsertWithId(student);
+
+                    userModel.UserId = stID;
+                }
+
+
+
+                IdentityResult result = await userManager.CreateAsync(userModel,newUserVM.Password);
 
                 if (result.Succeeded==true)
                 {
-                    //createCookie
-                   await signInManager.SignInAsync(userModel, isPersistent: false);
 
-                    return RedirectToAction("Index", "Course");
+                    List<Claim> claims = new List<Claim>();
+
+
+                    //createCookie
+                    await signInManager.SignInAsync(userModel, isPersistent: false);
+
+                    return RedirectToAction("Login");
                 }
 
                 else

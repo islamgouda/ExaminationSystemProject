@@ -12,6 +12,7 @@ namespace MVC.Reposatories
         Instructor GetInstructorByName(string name);
 
         bool InsertInstructor(Instructor e);
+        int InsertWithId(Instructor e);
 
         void DeleteInstructor(int id);
 

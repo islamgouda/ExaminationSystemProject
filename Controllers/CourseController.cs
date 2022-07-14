@@ -20,7 +20,7 @@ namespace ExaminationSystemProject.Controllers
 
 
 
-        [Authorize]
+        
         public IActionResult Index()
         {
             List<Course> courses = courseReprository.GetAll();
