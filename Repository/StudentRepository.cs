@@ -46,6 +46,14 @@ namespace ExaminationSystemProject.Repository
             context.SaveChanges();
         }
 
-        
+        public int InsertWithId(Student Student)
+        {
+
+            context.Students.Add(Student);
+
+            context.SaveChanges();
+
+            return (Student.ID);
+        }
     }
 }

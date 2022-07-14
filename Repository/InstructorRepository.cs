@@ -72,6 +72,14 @@ namespace MVC.Reposatories
 
         }
 
-       
+       public int InsertWithId(Instructor e)
+        {
+            context.Instructors.Add(e);
+            context.SaveChanges();
+            return (e.ID);
+        }
+
+
+
     }
 }
