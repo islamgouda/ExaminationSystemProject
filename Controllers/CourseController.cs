@@ -1,5 +1,6 @@
 ﻿using ExaminationSystem.Reprository;
 using ExaminationSystemProject.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ExaminationSystemProject.Controllers
@@ -14,11 +15,12 @@ namespace ExaminationSystemProject.Controllers
         }
 
 
-        
 
 
 
 
+
+        [Authorize]
         public IActionResult Index()
         {
             List<Course> courses = courseReprository.GetAll();
