@@ -103,5 +103,24 @@ namespace ExaminationSystemProject.Controllers
             question.insert(questionpool);
             return Content("saved");
         }
+        [HttpGet]
+        public IActionResult edit(int qid)
+        {
+            Questionpool questionpool=question.GetById(qid);
+            return View(questionpool);
+
+        }
+        [HttpPost]
+        public IActionResult edit(Questionpool ques)
+        {
+            if (ModelState.IsValid)
+            {
+                question.Update(ques.ID,ques);
+                RedirectToAction("Index");
+
+            }
+            return View(ques);
+
+        }
     }
 }
