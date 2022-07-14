@@ -1,6 +1,7 @@
 using ExaminationSystem.Reprository;
 using ExaminationSystemProject.Models;
 using ExaminationSystemProject.Repository;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,16 +12,25 @@ builder.Services.AddScoped<IQuestion, QuestionRepository>();
 builder.Services.AddScoped<IExam, ExamRespository>();
 builder.Services.AddDbContext<Context>(optionsBuilder =>
 {
-    optionsBuilder.UseSqlServer(@"Data source =.;Initial Catalog =myExamination; Integrated security=true");
+    optionsBuilder.UseSqlServer("Data source =DESKTOP-RBFSHHC\\SQLEXPRESS;Initial Catalog =myExamination; Integrated security=true");
 });
 
+//Register usermanager,roleManager
+ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(
+     options=>options.Password.RequireDigit=true).
+ AddEntityFrameworkStores<Context>();
+    
+
+   
+
+   
+
+//Custom Service
 builder.Services.AddScoped<ICourseReprository, CourseReprository>();
 builder.Services.AddScoped<IRegisterRepository, RegisterRepository>();
-
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 builder.Services.AddScoped<IExam, ExamRespository>();
 builder.Services.AddScoped<IStudentExamRepository, StudentExamRepository>();
-
 builder.Services.AddScoped<IRegisterRepository, RegisterRepository>();
 
 
@@ -36,6 +46,8 @@ if (!app.Environment.IsDevelopment())
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseAuthentication();//Check cookie if valid
 
 app.UseAuthorization();
 
