@@ -40,6 +40,9 @@ namespace ExaminationSystemProject.Controllers
 
             {
 
+
+
+
                 //string id = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
 
 
@@ -50,7 +53,15 @@ namespace ExaminationSystemProject.Controllers
                    bool found= await userManager.CheckPasswordAsync(userModel, UserVM.Password);
                     if(found)
                     {
-                        await signInManager.SignInAsync(userModel, UserVM.RemmberMe);//ispresintent=true
+                        List<Claim> claims = new List<Claim>();
+                        claims.Add(new Claim("UserId", userModel.UserId.ToString()));
+
+
+                        //createCookie
+                        await signInManager.SignInWithClaimsAsync(userModel, isPersistent: false, claims);
+                        string name = User.Identity.Name;
+
+
                         return RedirectToAction("Index", "Course");
                     }
                 }

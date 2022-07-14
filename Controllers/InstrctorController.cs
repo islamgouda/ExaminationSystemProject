@@ -101,6 +101,7 @@ namespace My_Tasks.Controllers
             return View(ins);
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, Instructor ins)
         {
             Instructor old = instructorReposatory.GetById(id);
