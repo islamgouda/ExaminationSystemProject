@@ -1,7 +1,7 @@
 ﻿using ExaminationSystemProject.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace MVC.Reposatories
+namespace ExaminationSystemProject.Reposatories
 {
     public class InstructorRepository : IInstructorReposatory
     {

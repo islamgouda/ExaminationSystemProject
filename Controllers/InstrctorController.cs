@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using ExaminationSystemProject.Models;
-using MVC.Reposatories;
+using ExaminationSystemProject.Reposatories;
 
-namespace My_Tasks.Controllers
+namespace ExaminationSystemProject.Controllers
 {
     public class InstrctorController : Controller
     {
@@ -17,7 +17,7 @@ namespace My_Tasks.Controllers
         }
 
         //Instrctor/Index
-        public IActionResult Indexx()
+        public IActionResult Index()
         {
             return View("Index");
         }
