@@ -23,8 +23,7 @@ namespace ExaminationSystemProject.Controllers
 
 
 
-
-        [Authorize(Roles = ("Instructor"))]
+        [Authorize(Roles = ("Instructor,Admin"))]
 
         [HttpGet]
 
@@ -52,7 +51,7 @@ namespace ExaminationSystemProject.Controllers
 
         [HttpGet]
 
-        [Authorize(Roles = ("Instructor"))]
+        [Authorize(Roles = ("Instructor,Admin"))]
         public IActionResult Details(int Id)
         {
             Course course = courseReprository.GetById(Id);
