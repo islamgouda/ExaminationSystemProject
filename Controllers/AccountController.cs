@@ -1,6 +1,7 @@
 ﻿using ExaminationSystemProject.Models;
 using ExaminationSystemProject.Repository;
 using ExaminationSystemProject.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MVC.Reposatories;
@@ -8,13 +9,14 @@ using System.Security.Claims;
 
 namespace ExaminationSystemProject.Controllers
 {
-
+    
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> signInManager;
         IInstructorReposatory InstructorReposatory;
         private readonly IStudentRepository studentRepository;
+       
 
         public AccountController(UserManager<ApplicationUser> _userManager,SignInManager<ApplicationUser> signInManager,IInstructorReposatory _instructorReposatory, IStudentRepository _studentRepository)
         {
@@ -60,10 +62,15 @@ namespace ExaminationSystemProject.Controllers
                         //createCookie
                         await signInManager.SignInWithClaimsAsync(userModel, isPersistent: false, claims);
                         string name = User.Identity.Name;
-
-
-                        return RedirectToAction("Indexx", "Instrctor");
+                        if(await userManager.IsInRoleAsync(userModel, "Admin"))
+                              return RedirectToAction("Indexx", "Instrctor");
+                        if (await userManager.IsInRoleAsync(userModel, "Student"))
+                            return RedirectToAction("Indexx", "Student");
+                        if (await userManager.IsInRoleAsync(userModel, "Instructor"))
+                            return RedirectToAction("Indexx", "Instrctor");
+                        return Content("Welcome Not Assigned role");
                     }
+                   
                 }
                 ModelState.AddModelError("", "User Name And Password invalid");
 
@@ -161,8 +168,25 @@ namespace ExaminationSystemProject.Controllers
 
             return Content(result);
         }
+        [Authorize(Roles = ("Admin"))]
+        [HttpPost]
+        public async Task<IActionResult> AddAdmin(RoleViewModel RNew)
+        {
+           
+            //int id= RNew.UserID;
+            var userModel2 =await userManager.FindByNameAsync(RNew.RoleName) ;
+            await userManager.AddToRoleAsync(userModel2, "Admin");
+            return Content("Saved");
 
+        }
+        [Authorize(Roles = ("Admin"))]
+        [HttpGet]
+        public IActionResult addAdmin()
+        {
+            return View();
+        }
 
+       
 
     }
 }
