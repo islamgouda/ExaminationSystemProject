@@ -33,7 +33,8 @@ namespace ExaminationSystemProject.Repository
 
         public Questionpool GetById(int id)
         {
-            return context.Questionpools.FirstOrDefault(e => e.ID == id);
+           Questionpool qs= context.Questionpools.Where(t => t.ID == id).FirstOrDefault();
+            return qs;
         }
 
         public void insert(Questionpool questionpool)
@@ -60,11 +61,20 @@ namespace ExaminationSystemProject.Repository
         public void Update(int id, Questionpool questionpool)
         {
             Questionpool old = context.Questionpools.FirstOrDefault(e => e.ID == id);
-            old.Questiontxt=questionpool.Questiontxt;
-            old.Degree=questionpool.Degree;
-            old.Correctanswer = questionpool.Correctanswer;
-            old.CourseId = questionpool.CourseId;
-            context.SaveChanges();
+            if(old != null) {
+                old.Questiontxt = questionpool.Questiontxt;
+                old.Degree = questionpool.Degree;
+                old.Correctanswer = questionpool.Correctanswer;
+                old.CourseId = questionpool.CourseId;
+                context.SaveChanges();
+            }
+            else
+            {
+                context.Questionpools.Add(questionpool);
+
+                context.SaveChanges();
+            }
+            
         }
 
        

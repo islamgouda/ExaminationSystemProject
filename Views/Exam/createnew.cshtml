@@ -1,13 +1,27 @@
 ﻿@model ExaminationSystemProject.ViewModel.ExViewModel;
 
 <form method="post" action="/Exam/chooseqst/@Model.ExID">
-                @{
-                    foreach(Questionpool q in Model.questionpools)
+    <table class="table table-border table-hover">
+        <tr><th>Question Text</th><th>Type</th><th>Answer</th><th>Add ToExam</th></tr>
+    @{
+        int c = 1;
+        foreach(Questionpool q in Model.questionpools)
                     {
-                        <label>@q.Questiontxt</label>
-                       <input type="checkbox" name="choose" value="@q.ID">
+                        <tr>
+                        <td>@(c++)
+                        --
+                        <label>@q.Questiontxt</label></td>
+                       
+                       <td>
+                               <div>Type: @q.Type </div></td>
+                              <td> <div>Answer: @q.Correctanswer </div></td>
+                              <td><label>Add ToExam</label><input type="checkbox" name="choose" value="@q.ID"></td>
+                           
+                       </tr>
+                       
                     }
                 }
+                </table>
 
  <input type="submit" class="btn btn-primary" value="Create" />
 </form>
