@@ -1,8 +1,11 @@
 ﻿using ExaminationSystemProject.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ExaminationSystemProject.Controllers
 {
+
+    [Authorize(Roles = ("Admin"))]
     public class ExamQuestionsController : Controller
     {
         Context context = new Context();
@@ -11,6 +14,8 @@ namespace ExaminationSystemProject.Controllers
             return View();
         }
         [HttpPost]
+
+        [Authorize(Roles = ("Instructor"))]
         public IActionResult AddQuestionsToExam(ExamQuestions eX)
         {
                 context.ExamQuestions.Add(eX);
