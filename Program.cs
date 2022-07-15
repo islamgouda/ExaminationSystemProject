@@ -3,7 +3,7 @@ using ExaminationSystemProject.Models;
 using ExaminationSystemProject.Repository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using MVC.Reposatories;
+using ExaminationSystemProject.Reposatories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,9 +32,24 @@ builder.Services.AddScoped<IRegisterRepository, RegisterRepository>();
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 builder.Services.AddScoped<IExam, ExamRespository>();
 builder.Services.AddScoped<IStudentExamRepository, StudentExamRepository>();
+//<<<<<<< HEAD
+//<<<<<<< HEAD
+//<<<<<<< HEAD
+//<<<<<<< HEAD
 builder.Services.AddScoped<IRegisterRepository, RegisterRepository>();
 builder.Services.AddScoped<IInstructorReposatory, InstructorRepository>();
 
+//=======
+//>>>>>>> parent of 18053bb (Merge pull request #10 from A7MED-TAREK/master)
+//=======
+//>>>>>>> parent of 18053bb (Merge pull request #10 from A7MED-TAREK/master)
+//=======
+//>>>>>>> parent of 18053bb (Merge pull request #10 from A7MED-TAREK/master)
+//=======
+builder.Services.AddScoped<IRegisterRepository, RegisterRepository>();
+builder.Services.AddScoped<IInstructorReposatory, InstructorRepository>();
+
+//>>>>>>> parent of 36046e7 (test)
 
 
 

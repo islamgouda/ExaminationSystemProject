@@ -1,0 +1,47 @@
+﻿@using ExaminationSystemProject.ViewModel
+@model ExamAnswerViewModel
+@{
+    ViewData["Title"] = "SolveExam";
+    int i = 1;
+}
+
+<h1>Exam</h1>
+
+<form method="post" asp-action="SolveExam" asp-route-ExamID="@ViewBag.examID" asp-route-StdID="@ViewBag.examID">
+    @foreach (var Quistion in Model.Questionpools)
+    {
+        <label class="form-label" ><span>@(i++). </span> @Quistion.Questiontxt</label>
+        @if (Quistion.Type.ToLower() == "ms")
+        {
+            <div>
+                @foreach (var item in Model.Answers)
+                {
+                    @if(item.QuestionID == Quistion.ID)
+                    {
+                        <input type="radio" name="answers[@Quistion.ID]" value="@item.ans1txt"><span>@item.ans1txt</span> <br>
+                        <input type="radio" name="answers[@Quistion.ID]" value="@item.ans2txt"><span>@item.ans2txt</span> <br>
+                        <input type="radio" name="answers[@Quistion.ID]" value="@item.ans3txt"><span>@item.ans3txt</span> <br>
+                        <input type="radio" name="answers[@Quistion.ID]" value="@item.ans4txt"><span>@item.ans4txt</span> <br>
+                        
+                    }
+                }
+            </div>
+            
+        }
+        else if (Quistion.Type.ToLower() == "tf")
+        {
+            <div>
+                <input type="radio" name="answers[@Quistion.ID]" value="true"><span>True</span> <br>
+                <input type="radio" name="answers[@Quistion.ID]" value="false"><span>False</span>
+            </div>
+        }
+        else if (Quistion.Type.ToLower() == "txt")
+        {
+            <div>
+                <input type="text" name="answers[@Quistion.ID]" class="form-control"/>
+            </div>
+        }
+    }
+    <input type="submit" value="Submit" class="btn btn-success"/>
+</form>
+

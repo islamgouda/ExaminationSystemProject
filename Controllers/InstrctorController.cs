@@ -2,10 +2,12 @@
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using ExaminationSystemProject.Models;
-using MVC.Reposatories;
+
+using ExaminationSystemProject.Reposatories;
 using Microsoft.AspNetCore.Authorization;
 
-namespace My_Tasks.Controllers
+
+namespace ExaminationSystemProject.Controllers
 {
 
     [Authorize(Roles = ("Admin"))]
@@ -20,8 +22,10 @@ namespace My_Tasks.Controllers
         }
 
         [Authorize(Roles = ("Instructor"))]
+
         //Instrctor/Indexx
         public IActionResult Indexx()
+
         {
             return View("Index");
         }

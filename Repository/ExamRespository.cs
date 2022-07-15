@@ -6,12 +6,14 @@ namespace ExaminationSystemProject.Repository
     public class ExamRespository : IExam
     {
         private Context context;
-        public ExamRespository(Context _context)
-        {
-            context= _context;
+        private readonly IQuestion questionRepo;
 
+        public ExamRespository(Context _context, IQuestion _question)
+        {
+            context = _context;
+            questionRepo = _question;
         }
-        
+
         public void Delete(int id)
         {
             throw new NotImplementedException();
@@ -69,6 +71,17 @@ namespace ExaminationSystemProject.Repository
         {
             Exam exam = context.Exams.Include(c => c.Course).FirstOrDefault(i => i.Id == examID);
             return exam;
+        }
+        public List<Questionpool> GetQuistions(int examID)
+        {
+            List<Questionpool> Questions = new List<Questionpool>();
+            List<ExamQuestions> exam = context.ExamQuestions.Where(i => i.ExamID == examID).ToList();
+
+            foreach (var item in exam)
+            {
+                Questions.Add(questionRepo.GetById(item.QuestID));
+            }
+            return Questions;
         }
     }
 }
