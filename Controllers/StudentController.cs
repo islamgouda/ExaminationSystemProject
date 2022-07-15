@@ -10,22 +10,16 @@ namespace ExaminationSystemProject.Controllers
     {
         private readonly IStudentRepository studentRepo;
         private readonly ICourseReprository couresRepo;
-        private readonly IRegisterRepository registerRepo;
-        private readonly IStudentExamRepository stdExamRrpo;
 
-        public StudentController(IStudentRepository _student, ICourseReprository _couresRepo,
-                                 IRegisterRepository _registerRepo, IStudentExamRepository _stdExamRrpo)
+        public StudentController(IStudentRepository _student, ICourseReprository _couresRepo)
         {
             studentRepo = _student;
             couresRepo = _couresRepo;
-            registerRepo = _registerRepo;
-            stdExamRrpo = _stdExamRrpo;
         }
         public IActionResult Indexx()
         {
             return View("Index",studentRepo.GetAll());
         }
-
         [HttpGet]
         public IActionResult New()
         {
@@ -50,12 +44,10 @@ namespace ExaminationSystemProject.Controllers
             
             return RedirectToAction("Index");
         }
-
         public IActionResult Details(int id)
         {
             return View(studentRepo.Get(id));
         }
-
         [HttpGet]
         public IActionResult Edit(int id)
         {
@@ -76,7 +68,6 @@ namespace ExaminationSystemProject.Controllers
             studentRepo.Edit(id, student);
             return RedirectToAction("Index");
         }
-
         [HttpGet]
         //[ValidateAntiForgeryToken]
         public IActionResult Delete(int id)
@@ -95,73 +86,25 @@ namespace ExaminationSystemProject.Controllers
             studentRepo.Delete(id);
             return RedirectToAction("Index");
         }
-
         [HttpGet]
-        public IActionResult RegisterCourse(int id)
+        public IActionResult RegisterCourse()
         {
-            ViewBag.StdID = id;
-            ViewBag.isEnrolled = true;
-            List<int> coursesIDs = registerRepo.getStudentCourses(id).Select(c=>c.CourseID).ToList();
-            List<Course> Enroledcourses = new List<Course>();
-            foreach (var item in coursesIDs)
-            {
-                Enroledcourses.Add(couresRepo.GetById(item));
-            }
-            List<Course> AllCourses = couresRepo.GetAll();
-            if (AllCourses == null)
-            {
+            //StudentCourse.get(id);
+            List<Course> courses = couresRepo.GetAll();
+            if (courses == null)
                 return NotFound();
-            }
-            if (Enroledcourses.Count == 0)
-            {
-                return View(AllCourses);
-            }
-            if (AllCourses.Count == Enroledcourses.Count)
-            {
-                ViewBag.isEnrolled = false;
-            }
-            List<Course> NotEnroledcourses = new List<Course>();
-
-            foreach (Course course in AllCourses)
-            {
-                    if (!Enroledcourses.Contains(course))
-                        NotEnroledcourses.Add(course);
-            }
-            return View(NotEnroledcourses);
+            return View(courses);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult RegisterCourse(int id ,int[] checkedCourses)
+        public IActionResult RegisterCourse(int id)
         {
-            foreach (int Mycourse in checkedCourses)
-            {
-                registerRepo.register(Mycourse, id);
-            }
+            Course courses = couresRepo.GetById(id);
+            if (courses == null)
+                return NotFound();
 
+            //StudentCourse.insert(id);
             return RedirectToAction("RegisterCourse");
-        }
-
-        public IActionResult ShowCourses(int id)
-        {
-            ViewBag.StdCrsID=id;
-            List<int> coursesIDs = registerRepo.getStudentCourses(id).Select(c => c.CourseID).ToList();
-            List<Course> Enroledcourses = new List<Course>();
-            foreach (var item in coursesIDs)
-            {
-                Enroledcourses.Add(couresRepo.GetById(item));
-            }
-            return View(Enroledcourses);
-        }
-
-        public IActionResult ShowExams(int id)
-        {
-            ViewBag.StdExamID = id;
-            ViewBag.StdCrsID = id;
-            ViewBag.hasExam = true;
-            List<Exam> myExams = stdExamRrpo.GetStudentExams(id);
-            if(myExams.Count == 0)
-                ViewBag.hasExam = false;
-            return View(myExams);
         }
     }
 }

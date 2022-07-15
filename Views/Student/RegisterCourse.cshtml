@@ -3,35 +3,24 @@
     ViewData["Title"] = "RegisterCourse";
     int i = 1;
 }
-@if (ViewBag.isEnrolled)
+
+<h1>Register Course</h1>
+
+<table class="table table-hover">
+    <tr class="row">
+        <th class="col">No.</th>
+        <th class="col">Name</th>
+        <th class="col"></th>
+    </tr>
+
+@foreach (var item in Model)
 {
-    <h1>Register Courses</h1>
-    <form asp-action="RegisterCourse" asp-route-id="@ViewBag.StdID" method="post">
-    <table class="table table-hover">
-        <tr class="row">
-            <th class="col">No.</th>
-            <th class="col">Name</th>
-            <th class="col"></th>
-        </tr>
+    <tr class="row">
+        <td class="col">@(i++)</td>
+        <td class="col">@item.Name</td>
 
-    @foreach (var item in Model)
-    {
-        <tr class="row">
-            <td class="col">@(i++)</td>
-            <td class="col">@item.Name</td>
-
-            <td class="col">
-                @*<a href="/Student/Details/@item.ID" class="btn btn-success">Register</a>  *@
-                <input type="checkbox" name="checkedCourses" value="@item.ID">
-            </td>
-        </tr>
-    }
-    </table>
-    <input type="submit" value="Register" class="btn btn-primary mt-3"/>
-    </form>
-}
-else{
-    <br />
-    <h2 class="text-center">There are No courses to register</h2>
-    <div class="text-center"><a href="/Student/Details/@ViewBag.StdID" class="btn btn-secondary">Back To Deatils</a></div>
+        <td class="col">
+            <a href="/Student/Details/@item.ID" class="btn btn-success">Register</a>  
+        </td>
+    </tr>
 }

@@ -12,6 +12,5 @@ namespace ExaminationSystemProject.Repository
         void Edit(int Id, Student_Exam StudentExam);
 
         void Delete(int Id);
-        List<Exam> GetStudentExams(int StdId);
     }
 }
