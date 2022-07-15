@@ -119,27 +119,45 @@ namespace ExaminationSystemProject.Controllers
             question.insert(questionpool);
             return Content("saved");
         }
+
         [HttpGet]
 
         [Authorize(Roles = ("Instructor"))]
+
+        public IActionResult Detais(int id)
+        {
+            return View();
+        }
+
+        
+
         public IActionResult edit(int qid)
         {
-            Questionpool questionpool=question.GetById(qid);
-            return View(questionpool);
+
+            Context con = new Context();
+            Questionpool questionp = question.GetById(qid);
+            if (questionp != null) { return View(questionp); }
+            return NotFound();
+            
 
         }
+
 
         [Authorize(Roles = ("Instructor"))]
         [HttpPost]
         public IActionResult edit(Questionpool ques)
+
+        
+        public IActionResult update(int id,Questionpool ques)
+
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid==true)
             {
-                question.Update(ques.ID,ques);
-                RedirectToAction("Index");
+                question.Update(id,ques);
+              return  RedirectToAction("Index");
 
             }
-            return View(ques);
+            return View("edit",ques);
 
         }
     }

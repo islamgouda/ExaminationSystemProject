@@ -8,8 +8,14 @@
 
 <h4>Questionpool</h4>
 <hr />
-<form method="post" action="/question/edit/">
+<form method="post" action="/question/update?id=@Model.ID">
+    <input type="text" name="ID" value="@Model.ID" />
     <input type="text" name="Type" value="@Model.Type" />
+     <input type="text" name="Questiontxt" value="@Model.Questiontxt" />
+      <input type="text" name="Correctanswer" value="@Model.Correctanswer" />
+       <input type="text" name="Degree" value="@Model.Degree" />
+       <input type="text" name="CourseId" value="@Model.CourseId" />
+       <input type="submit" class="btn btn-success" />
 </form>
 <div>
     <a asp-action="Index">Back to List</a>
