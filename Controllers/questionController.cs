@@ -143,9 +143,12 @@ namespace ExaminationSystemProject.Controllers
         }
 
 
-        [Authorize(Roles = ("Instructor"))]
-        [HttpPost]
-        public IActionResult edit(Questionpool ques)
+        //[Authorize(Roles = ("Instructor"))]
+       // [HttpPost]
+       // public IActionResult edit()
+        //{
+
+        //}
 
         
         public IActionResult update(int id,Questionpool ques)
