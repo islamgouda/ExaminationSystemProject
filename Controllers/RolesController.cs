@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ExaminationSystemProject.Controllers
 {
-    [Authorize(Roles =("Admin"))]
+    //[Authorize(Roles =("Admin"))]
     public class RolesController : Controller
     {
         private readonly RoleManager<IdentityRole> rolemanager;
@@ -20,12 +20,12 @@ namespace ExaminationSystemProject.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> New(RoleViewModel newrole)
+        public async Task<IActionResult> New(string RoleName)
         {
             if(ModelState.IsValid)
             {
                IdentityRole role=new IdentityRole();
-                role.Name = newrole.RoleName;
+                role.Name = RoleName;
                IdentityResult result=await rolemanager.CreateAsync(role);
                if(result.Succeeded)
                 {
@@ -37,7 +37,7 @@ namespace ExaminationSystemProject.Controllers
                 }
             }
             
-            return View(newrole);
+            return View(RoleName);
         }
     }
 }

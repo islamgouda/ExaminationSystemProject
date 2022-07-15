@@ -169,7 +169,7 @@ namespace ExaminationSystemProject.Controllers
             return Content(result);
         }
 
-        [Authorize(Roles = ("Admin"))]
+        //[Authorize(Roles = ("Admin"))]
         [HttpPost]
         public async Task<IActionResult> AddAdmin(RoleViewModel RNew)
         {
@@ -180,7 +180,7 @@ namespace ExaminationSystemProject.Controllers
             return Content("Saved");
 
         }
-        [Authorize(Roles = ("Admin"))]
+        //[Authorize(Roles = ("Admin"))]
         [HttpGet]
         public IActionResult addAdmin()
         {
