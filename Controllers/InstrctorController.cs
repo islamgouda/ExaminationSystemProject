@@ -20,7 +20,7 @@ namespace My_Tasks.Controllers
         }
 
         [Authorize(Roles = ("Instructor"))]
-        //Instrctor/Index
+        //Instrctor/Indexx
         public IActionResult Indexx()
         {
             return View("Index");
@@ -33,25 +33,55 @@ namespace My_Tasks.Controllers
         }
 
 
-        [Authorize(Roles = ("Instructor"))]
-        public IActionResult Details()
+        [Authorize(Roles = ("Instructor,Admin"))]
+        public IActionResult Details(int id)
         {
-            int id= int.Parse(User.FindFirst("UserId").Value);
-            if (instructorReposatory.GetById(id) != null)
+            if (User.IsInRole("Admin"))
             {
-                return View(instructorReposatory.GetById(id));
+                if (instructorReposatory.GetById(id) != null)
+                {
+                    return View(instructorReposatory.GetById(id));
 
+                }
+                return RedirectToAction("Indexx");
+            }
+            else if (User.IsInRole("Instructor"))
+            {
+                int id2 = int.Parse(User.FindFirst("UserId").Value);
+                if (instructorReposatory.GetById(id2) != null)
+                {
+                    return View(instructorReposatory.GetById(id));
+
+                }
+                
             }
             return RedirectToAction("Indexx");
 
+
+
         }
 
-        [Authorize(Roles = ("Instructor"))]
-        public IActionResult ShowInstructorCourseAndExams()
+        [Authorize(Roles = ("Instructor,Admin"))]
+        public IActionResult ShowInstructorCourseAndExams(int id)
         {
-            int id = int.Parse(User.FindFirst("UserId").Value);
-            List<Exam> res= instructorReposatory.AllInsExams(id);
-            return View(res);
+            if (User.IsInRole("Admin"))
+            {
+                List<Exam> res = instructorReposatory.AllInsExams(id);
+                if (res.Count()>0)
+                    return View(res);
+                else
+                    return Content("NoExams found");
+            }
+            else
+            {
+                int id2 = int.Parse(User.FindFirst("UserId").Value);
+                List<Exam> res = instructorReposatory.AllInsExams(id2);
+                if (res.Count() > 0)
+                    return View(res);
+                else
+                    return Content("NoExams found");
+            }
+            return RedirectToAction("Indexx");
 
         }
 

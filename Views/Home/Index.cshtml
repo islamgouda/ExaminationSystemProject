@@ -4,5 +4,47 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <p>Online Examination System To Test,Evaluate Students of Multiple Courses</p>
+    @if(User.IsInRole("Admin"))
+    {
+       
+<div class="row">
+  <div class="col">
+      <div class="card" style="width:300px">
+      <img class="card-img-top" src="~/images/Courses.png" alt="Card image">
+      <div class="card-body">
+      <h4 class="card-title">Instructors</h4>
+      <p class="card-text">Take Control on all Instructor Processes</p>
+      <a href="Instrctor/GetInstructors" class="btn btn-primary">Go</a>
+  </div>
+</div>
+
+
+  </div>
+  <div class="col">
+      <div class="card" style="width:300px">
+  <img class="card-img-top" src="~/images/Courses.png" alt="Card image">
+  <div class="card-body">
+    <h4 class="card-title">Courses</h4>
+    <p class="card-text">All Courses in the System</p>
+    <p class="card-text">ADD,Update,Delete Courses</p>
+    <p class="card-text">Take Control</p>
+    <a href="Course/Index" class="btn btn-info">Go</a>
+  </div>
+</div>
+
+  </div>
+  <div class="col">
+      <div class="card" style="width:300px">
+  <img class="card-img-top" src="~/images/Courses.png" alt="Card image">
+  <div class="card-body">
+    <h4 class="card-title">Roles</h4>
+    <p class="card-text">Add Role to user</p>
+    <a href="/Account/addAdmin" class="btn btn-primary">go</a>
+  </div>
+</div>
+
+  </div>
+</div>
+    }
 </div>

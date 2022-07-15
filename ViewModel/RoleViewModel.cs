@@ -6,6 +6,6 @@ namespace ExaminationSystemProject.ViewModel
     {
         [Required]
         public string RoleName { get; set; }
-        public int UserID { get; set; }
+        public string UserName { get; set; }
     }
 }

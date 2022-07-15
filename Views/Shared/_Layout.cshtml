@@ -23,7 +23,18 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="">Admin Dashboard</a>
+                            }
+                            @if (User.IsInRole("Student"))
+                            {
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="Details">Student Dashboard</a>
+                            }
+                            @if (User.IsInRole("Instructor"))
+                            {
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="">Instructor Dashboard</a>
+                            }
                         </li>
                         </ul>
                        

@@ -35,7 +35,10 @@
     <a asp-action="ShowCourses" asp-route-id="@Model.ID">My Courses </a> | 
     <a asp-action="ShowExams" asp-route-id="@Model.ID">My Exams </a> | 
 </div>
-<div>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    <a asp-action="Index">Back to List</a>
+<div> @if(User.IsInRole("Admin"))
+        {
+         @Html.ActionLink("Edit", "Edit", new { id = Model.ID })
+          <a href="/student/Index" >Back to List</a>
+    }
+  <a asp-action="Index" asp-controller="Home">Back to Home</a>
 </div>

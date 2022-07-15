@@ -36,9 +36,10 @@
                 </div>
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-action="DeleteInstructor" asp-route-id="@item.ID">Delete</a>
+                <a class="btn btn-info" asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                <a class="btn btn-danger" asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                <a class="btn btn-" asp-action="DeleteInstructor" asp-route-id="@item.ID">Delete</a>
+                <a class="btn btn-info" asp-action="ShowInstructorCourseAndExams" asp-route-id="@item.ID">Exams&Course</a>
             </td>
         </tr>
 }
