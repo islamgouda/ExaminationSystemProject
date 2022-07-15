@@ -137,6 +137,12 @@ namespace ExaminationSystemProject.Controllers
                     //createCookie
                     await signInManager.SignInWithClaimsAsync (userModel, isPersistent: false,claims);
                     string name = User.Identity.Name;
+                    if (userModel.Type == "Student")
+                    {
+                        var userModel2 = await userManager.FindByNameAsync(userModel.UserName);
+                        await userManager.AddToRoleAsync(userModel2, "Student");
+                    }
+                    
 
                     return RedirectToAction("Test");
                 }
@@ -155,7 +161,7 @@ namespace ExaminationSystemProject.Controllers
 
             return View(newUserVM);
         }
-
+       
         public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();
@@ -169,7 +175,7 @@ namespace ExaminationSystemProject.Controllers
             return Content(result);
         }
 
-        //[Authorize(Roles = ("Admin"))]
+        [Authorize(Roles = ("Admin"))]
         [HttpPost]
         public async Task<IActionResult> AddAdmin(RoleViewModel RNew)
         {

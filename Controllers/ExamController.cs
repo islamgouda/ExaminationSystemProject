@@ -10,7 +10,7 @@ using System.Linq;
 namespace ExaminationSystemProject.Controllers
 {
 
-    [Authorize(Roles = ("Admin"))]
+  //  [Authorize(Roles = ("Admin"))]
     public class ExamController : Controller
     {
         private IExam exam;
@@ -19,13 +19,14 @@ namespace ExaminationSystemProject.Controllers
         {
             exam = _exam;
         }
+        [Authorize(Roles = ("Instructor,Admin"))]
         public IActionResult Index()
         {
             List<Exam> Result= exam.GetAll();
             return View(Result);
         }
 
-        [Authorize(Roles = ("Instructor"))]
+        [Authorize(Roles = ("Instructor,Admin"))]
         public IActionResult ADD()
         {
             ViewData["CourseList"]=context.Courses.ToList();
@@ -33,7 +34,7 @@ namespace ExaminationSystemProject.Controllers
         }
 
 
-        [Authorize(Roles = ("Instructor"))]
+        [Authorize(Roles = ("Instructor,Admin"))]
         [HttpPost]
         public IActionResult SaveNew(Exam e)
         {
@@ -45,7 +46,7 @@ namespace ExaminationSystemProject.Controllers
             return View("New", e);
         }
 
-        [Authorize(Roles = ("Instructor"))]
+        [Authorize(Roles = ("Instructor,Admin"))]
         public IActionResult SelectQuestions(int id)
         {
             SelectQuestionViewModel Model = new SelectQuestionViewModel();
@@ -55,15 +56,17 @@ namespace ExaminationSystemProject.Controllers
         }
 
 
-
-        [Authorize(Roles = ("Instructor"))]
+       // [Authorize(Roles = ("Admin"))]
+        [Authorize(Roles = ("Instructor,Admin"))]
+       // [Authorize(Roles = ("Instructor"))]
         public IActionResult createexam()
         {
             ViewData["CourseList"] = context.Courses.ToList();
             return View();
         }
-
-        [Authorize(Roles = ("Instructor"))]
+      //  [Authorize(Roles = ("Instructor"))]
+      //  [Authorize(Roles = ("Instructor"))]
+        [Authorize(Roles =("Instructor,Admin"))]
         public IActionResult createnew(int courseID,Exam e)
         {
             e.InstructorId = int.Parse(User.FindFirst("UserId").Value);
@@ -75,8 +78,9 @@ namespace ExaminationSystemProject.Controllers
             ex.questionpools = questionpools;
             return View(ex);
         }
-
-        [Authorize(Roles = ("Instructor"))]
+       // [Authorize(Roles = ("Admin"))]
+       // [Authorize(Roles = ("Instructor"))]
+        [Authorize(Roles = ("Instructor,Admin"))]
         public IActionResult chooseqst(int id, int[] choose=null)
         {
             Exam ex=exam.GetById(id);

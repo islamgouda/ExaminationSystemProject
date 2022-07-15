@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ExaminationSystemProject.Controllers
 {
-    [Authorize(Roles = ("Admin"))]
+   // [Authorize(Roles = ("Admin"))]
     public class StudentController : Controller
     {
         private readonly IStudentRepository studentRepo;
@@ -231,5 +231,12 @@ namespace ExaminationSystemProject.Controllers
             stdExamRrpo.SetStudentDegree(stdID, ExamID, sum);
             return NotFound();
         }
+
+        [Authorize(Roles = ("Student"))]
+        public IActionResult mshow()
+        {
+            return Content("student only");
+        }
     }
+    
 }

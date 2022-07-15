@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ExaminationSystemProject.Controllers
 {
 
-    [Authorize(Roles = ("Admin"))]
+    
     public class ExamQuestionsController : Controller
     {
         Context context = new Context();
