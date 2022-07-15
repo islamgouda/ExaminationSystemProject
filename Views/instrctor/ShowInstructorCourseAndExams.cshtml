@@ -1,0 +1,25 @@
+﻿@model List<Exam>
+
+
+<h1>Your Course: @Model[0].Course.Name</h1>
+<table class="table table-bordered table-sm">
+    <thead>
+    <tr>
+        <td>Exam Id</td>
+        <td>Exam degree</td>
+        <td>Start Time</td>
+        <td>End Time</td>
+    </tr>
+    </thead>
+    @foreach (var item in @Model)
+    {
+      <tr>
+        <td>@item.Id</td>
+        <td>@item.degree</td>
+        <td>@item.Start.Hour</td>
+        <td>@item.End.Hour</td>
+    </tr>  
+    }
+    
+</table>
+

@@ -17,6 +17,7 @@ namespace MVC.Reposatories
         void DeleteInstructor(int id);
 
         void Edit(int Id, Instructor instructor);
+        List<Exam> AllInsExams(int id);
 
 
 

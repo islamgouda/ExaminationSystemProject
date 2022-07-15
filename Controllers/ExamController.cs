@@ -56,8 +56,9 @@ namespace ExaminationSystemProject.Controllers
         }
       public IActionResult createnew(int courseID,Exam e)
         {
-           int exID= exam.insertAndGetId(e);
-           List<Questionpool> questionpools = context.Questionpools.Where(c => c.CourseId == courseID).ToList();
+            e.InstructorId = int.Parse(User.FindFirst("UserId").Value);
+            int exID= exam.insertAndGetId(e);
+            List<Questionpool> questionpools = context.Questionpools.Where(c => c.CourseId == courseID).ToList();
             ExViewModel ex = new ExViewModel();
             ex.questionpools = new List<Questionpool>();
             ex.ExID = exID;

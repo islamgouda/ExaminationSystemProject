@@ -62,7 +62,7 @@ namespace ExaminationSystemProject.Controllers
                         string name = User.Identity.Name;
 
 
-                        return RedirectToAction("Index", "Course");
+                        return RedirectToAction("Indexx", "Instrctor");
                     }
                 }
                 ModelState.AddModelError("", "User Name And Password invalid");

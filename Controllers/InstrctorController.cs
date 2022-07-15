@@ -15,6 +15,12 @@ namespace My_Tasks.Controllers
             this.instructorReposatory = _instructorReposatory;
 
         }
+
+        //Instrctor/Index
+        public IActionResult Indexx()
+        {
+            return View("Index");
+        }
         [HttpGet]
         public IActionResult GetInstructors()
         {
@@ -23,14 +29,22 @@ namespace My_Tasks.Controllers
         }
 
 
-        public IActionResult Details(int id)
+        public IActionResult Details()
         {
+            int id= int.Parse(User.FindFirst("UserId").Value);
             if (instructorReposatory.GetById(id) != null)
             {
                 return View(instructorReposatory.GetById(id));
 
             }
             return RedirectToAction("GetInstructors");
+
+        }
+        public IActionResult ShowInstructorCourseAndExams()
+        {
+            int id = int.Parse(User.FindFirst("UserId").Value);
+            List<Exam> res= instructorReposatory.AllInsExams(id);
+            return View(res);
 
         }
 
