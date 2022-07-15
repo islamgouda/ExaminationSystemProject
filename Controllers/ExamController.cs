@@ -4,7 +4,8 @@ using ExaminationSystemProject.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
-
+//createexam
+//
 namespace ExaminationSystemProject.Controllers
 {
     public class ExamController : Controller
