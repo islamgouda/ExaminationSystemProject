@@ -8,7 +8,7 @@
 <h1>@Model.Id</h1>
 <form method="post" action="/ExamQuestions/AddQuestionsToExam">
      <label>Question Number</label><br />
-     <input  name="QuestID" value="" /><br />
+     <input id="QN" name="QuestID" value="" /><br />
      <label>Exam Number</label><br />
      <input name="ExamID" value="@Model.Id" /><br />
      <input type="submit" class="btn btn-primary" value="Add" />
@@ -16,12 +16,22 @@
 <table class="table table-bordered">
 @foreach (var item in xx)
 {
-   <tr>
+   <tr class="cs">
     <td>  @item.ID</td> 
     <td>   @item.Questiontxt  </td> 
-    <td><input name="QuestID" type="checkbox" value="@item.ID"></input></td> 
+    <td><input id="itemss"  name="QuestID" type="checkbox" value="@item.ID" onClick="toggleCheckbox(@item.ID)">@item.ID</td>
    </tr>
+   
 }
 </table> 
+<script>
+ //   function toggleCheckbox(item)
+ //{
+ //       document.getElementsByClassName("cs").item(item-2).hidden = true;
+ //       document.getElementById("QN").value=item;
+ //       console.log(document.getElementById("itemss").value);
+ //       console.log(document.getElementsByClassName("cs").length);
+ //}
 
+</script>
 
