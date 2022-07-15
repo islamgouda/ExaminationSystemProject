@@ -1,7 +1,7 @@
 ﻿
 using ExaminationSystemProject.Models;
 
-namespace MVC.Reposatories
+namespace ExaminationSystemProject.Reposatories
 {
     public interface IInstructorReposatory
     {
