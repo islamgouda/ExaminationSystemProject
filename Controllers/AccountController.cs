@@ -63,11 +63,11 @@ namespace ExaminationSystemProject.Controllers
                         await signInManager.SignInWithClaimsAsync(userModel, isPersistent: false, claims);
                         string name = User.Identity.Name;
                         if(await userManager.IsInRoleAsync(userModel, "Admin"))
-                              return RedirectToAction("Indexx", "Instrctor");
+                              return RedirectToAction("Index", "Home");
                         if (await userManager.IsInRoleAsync(userModel, "Student"))
-                            return RedirectToAction("Indexx", "Student");
+                            return Content("Welcome Student");
                         if (await userManager.IsInRoleAsync(userModel, "Instructor"))
-                            return RedirectToAction("Indexx", "Instrctor");
+                            return RedirectToAction("Index", "Home");
                         return Content("Welcome Not Assigned role");
                     }
                    
@@ -168,14 +168,15 @@ namespace ExaminationSystemProject.Controllers
 
             return Content(result);
         }
+
         [Authorize(Roles = ("Admin"))]
         [HttpPost]
         public async Task<IActionResult> AddAdmin(RoleViewModel RNew)
         {
            
             //int id= RNew.UserID;
-            var userModel2 =await userManager.FindByNameAsync(RNew.RoleName) ;
-            await userManager.AddToRoleAsync(userModel2, "Admin");
+            var userModel2 =await userManager.FindByNameAsync(RNew.UserName) ;
+            await userManager.AddToRoleAsync(userModel2, RNew.RoleName);
             return Content("Saved");
 
         }
