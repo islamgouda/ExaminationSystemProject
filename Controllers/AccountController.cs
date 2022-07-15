@@ -180,7 +180,7 @@ namespace ExaminationSystemProject.Controllers
             return Content("Saved");
 
         }
-        //[Authorize(Roles = ("Admin"))]
+        [Authorize(Roles = ("Admin"))]
         [HttpGet]
         public IActionResult addAdmin()
         {
