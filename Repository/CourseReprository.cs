@@ -1,4 +1,5 @@
-﻿using ExaminationSystemProject.Models;
+﻿//using ExaminationSystem.Models;
+using ExaminationSystemProject.Models;
 
 namespace ExaminationSystem.Reprository
 {
@@ -43,5 +44,6 @@ namespace ExaminationSystem.Reprository
             return context.Courses.FirstOrDefault(x => x.ID == Id);
 
         }
+        ////new Repository
     }
 }

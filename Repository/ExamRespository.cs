@@ -58,5 +58,12 @@ namespace ExaminationSystemProject.Repository
         {
             throw new NotImplementedException();
         }
+
+        public int insertAndGetId(Exam exam)
+        {
+            context.Exams.Add(exam);
+            context.SaveChanges();
+            return exam.Id;
+        }
     }
 }

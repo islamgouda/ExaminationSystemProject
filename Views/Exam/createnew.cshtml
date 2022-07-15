@@ -1,0 +1,13 @@
+﻿@model ExaminationSystemProject.ViewModel.ExViewModel;
+
+<form method="post" action="/Exam/chooseqst/@Model.ExID">
+                @{
+                    foreach(Questionpool q in Model.questionpools)
+                    {
+                        <label>@q.Questiontxt</label>
+                       <input type="checkbox" name="choose" value="@q.ID">
+                    }
+                }
+
+ <input type="submit" class="btn btn-primary" value="Create" />
+</form>
