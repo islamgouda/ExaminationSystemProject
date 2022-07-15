@@ -15,7 +15,7 @@ namespace ExaminationSystemProject.Models
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data source =DESKTOP-RBFSHHC\\SQLEXPRESS;Initial Catalog =myExamination;Integrated security=true");
+            optionsBuilder.UseSqlServer("Data source =.;Initial Catalog =myExamination;Integrated security=true");
         }
         //DESKTOP-RBFSHHC\\SQLEXPRESS
         //DESKTOP-JT45RDG

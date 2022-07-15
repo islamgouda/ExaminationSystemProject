@@ -13,7 +13,7 @@ builder.Services.AddScoped<IQuestion, QuestionRepository>();
 builder.Services.AddScoped<IExam, ExamRespository>();
 builder.Services.AddDbContext<Context>(optionsBuilder =>
 {
-    optionsBuilder.UseSqlServer("Data source =DESKTOP-RBFSHHC\\SQLEXPRESS;Initial Catalog =myExamination; Integrated security=true");
+    optionsBuilder.UseSqlServer("Data source =.;Initial Catalog =myExamination; Integrated security=true");
 });
 
 //Register usermanager,roleManager
