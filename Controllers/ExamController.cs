@@ -4,7 +4,8 @@ using ExaminationSystemProject.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
-
+//createexam
+//
 namespace ExaminationSystemProject.Controllers
 {
     public class ExamController : Controller
@@ -33,13 +34,14 @@ namespace ExaminationSystemProject.Controllers
         {
             if (e.CourseId != null)
             {
-                exam.insert(e);
-                return RedirectToAction("Index");
+               int id= exam.insert(e);
+                return RedirectToAction("SelectQuestions",new {id=id});
             }
             return View("New", e);
         }
         public IActionResult SelectQuestions(int id)
         {
+            SelectQuestionViewModel Model = new SelectQuestionViewModel();
             Exam x=exam.GetById(id);
             ViewData["Questions"] = context.Questionpools.Where(c => c.CourseId == x.CourseId).ToList();
             return View(x);
@@ -54,8 +56,9 @@ namespace ExaminationSystemProject.Controllers
         }
       public IActionResult createnew(int courseID,Exam e)
         {
-           int exID= exam.insertAndGetId(e);
-           List<Questionpool> questionpools = context.Questionpools.Where(c => c.CourseId == courseID).ToList();
+            e.InstructorId = int.Parse(User.FindFirst("UserId").Value);
+            int exID= exam.insertAndGetId(e);
+            List<Questionpool> questionpools = context.Questionpools.Where(c => c.CourseId == courseID).ToList();
             ExViewModel ex = new ExViewModel();
             ex.questionpools = new List<Questionpool>();
             ex.ExID = exID;

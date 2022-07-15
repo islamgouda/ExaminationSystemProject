@@ -3,7 +3,7 @@ namespace ExaminationSystemProject.Repository
 {
     public interface IExam
     {
-        public void insert(Exam exam);
+        public int insert(Exam exam);
         public int insertAndGetId(Exam exam);
         public void Update(int id, Exam exam);
         public Exam GetById(int id);
