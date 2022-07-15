@@ -2,10 +2,12 @@
 using ExaminationSystemProject.Models;
 using ExaminationSystemProject.Repository;
 using ExaminationSystemProject.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ExaminationSystemProject.Controllers
 {
+    [Authorize(Roles = ("Admin"))]
     public class StudentController : Controller
     {
         private readonly IStudentRepository studentRepo;
@@ -21,6 +23,7 @@ namespace ExaminationSystemProject.Controllers
             registerRepo = _registerRepo;
             stdExamRrpo = _stdExamRrpo;
         }
+
         public IActionResult Index()
         {
             return View(studentRepo.GetAll());
@@ -50,9 +53,10 @@ namespace ExaminationSystemProject.Controllers
             
             return RedirectToAction("Index");
         }
-
-        public IActionResult Details(int id)
+        [Authorize(Roles = ("Student"))]
+        public IActionResult Details()
         {
+            int id= int.Parse(User.FindFirst("UserId").Value);
             return View(studentRepo.Get(id));
         }
 
@@ -95,7 +99,7 @@ namespace ExaminationSystemProject.Controllers
             studentRepo.Delete(id);
             return RedirectToAction("Index");
         }
-
+        [Authorize(Roles = ("Student"))]
         [HttpGet]
         public IActionResult RegisterCourse(int id)
         {
@@ -129,6 +133,7 @@ namespace ExaminationSystemProject.Controllers
             }
             return View(NotEnroledcourses);
         }
+        [Authorize(Roles = ("Student"))]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult RegisterCourse(int id ,int[] checkedCourses)
@@ -140,6 +145,7 @@ namespace ExaminationSystemProject.Controllers
 
             return RedirectToAction("RegisterCourse");
         }
+        [Authorize(Roles = ("Student"))]
 
         public IActionResult ShowCourses(int id)
         {
@@ -152,7 +158,7 @@ namespace ExaminationSystemProject.Controllers
             }
             return View(Enroledcourses);
         }
-
+        [Authorize(Roles = ("Student"))]
         public IActionResult ShowExams(int id)
         {
             ViewBag.StdExamID = id;

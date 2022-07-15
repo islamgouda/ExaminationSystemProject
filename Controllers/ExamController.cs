@@ -1,6 +1,7 @@
 ﻿using ExaminationSystemProject.Models;
 using ExaminationSystemProject.Repository;
 using ExaminationSystemProject.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -8,6 +9,8 @@ using System.Linq;
 //
 namespace ExaminationSystemProject.Controllers
 {
+
+    [Authorize(Roles = ("Admin"))]
     public class ExamController : Controller
     {
         private IExam exam;
@@ -21,14 +24,16 @@ namespace ExaminationSystemProject.Controllers
             List<Exam> Result= exam.GetAll();
             return View(Result);
         }
-       
+
+        [Authorize(Roles = ("Instructor"))]
         public IActionResult ADD()
         {
             ViewData["CourseList"]=context.Courses.ToList();
             return View(new Exam());
         }
-       
 
+
+        [Authorize(Roles = ("Instructor"))]
         [HttpPost]
         public IActionResult SaveNew(Exam e)
         {
@@ -39,6 +44,8 @@ namespace ExaminationSystemProject.Controllers
             }
             return View("New", e);
         }
+
+        [Authorize(Roles = ("Instructor"))]
         public IActionResult SelectQuestions(int id)
         {
             SelectQuestionViewModel Model = new SelectQuestionViewModel();
@@ -48,13 +55,16 @@ namespace ExaminationSystemProject.Controllers
         }
 
 
-        ///////
+
+        [Authorize(Roles = ("Instructor"))]
         public IActionResult createexam()
         {
             ViewData["CourseList"] = context.Courses.ToList();
             return View();
         }
-      public IActionResult createnew(int courseID,Exam e)
+
+        [Authorize(Roles = ("Instructor"))]
+        public IActionResult createnew(int courseID,Exam e)
         {
             e.InstructorId = int.Parse(User.FindFirst("UserId").Value);
             int exID= exam.insertAndGetId(e);
@@ -65,6 +75,8 @@ namespace ExaminationSystemProject.Controllers
             ex.questionpools = questionpools;
             return View(ex);
         }
+
+        [Authorize(Roles = ("Instructor"))]
         public IActionResult chooseqst(int id, int[] choose=null)
         {
             Exam ex=exam.GetById(id);

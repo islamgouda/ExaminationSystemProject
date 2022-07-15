@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ExaminationSystemProject.Controllers
 {
+
+    [Authorize(Roles = ("Admin"))]
     public class CourseController : Controller
     {
         ICourseReprository courseReprository;
@@ -20,7 +22,12 @@ namespace ExaminationSystemProject.Controllers
 
 
 
+
+
+        [Authorize(Roles = ("Instructor"))]
+
         [HttpGet]
+
         public IActionResult Index()
         {
             
@@ -44,6 +51,8 @@ namespace ExaminationSystemProject.Controllers
         }
 
         [HttpGet]
+
+        [Authorize(Roles = ("Instructor"))]
         public IActionResult Details(int Id)
         {
             Course course = courseReprository.GetById(Id);

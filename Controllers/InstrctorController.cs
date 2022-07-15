@@ -2,10 +2,15 @@
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using ExaminationSystemProject.Models;
+
 using ExaminationSystemProject.Reposatories;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace ExaminationSystemProject.Controllers
 {
+
+    [Authorize(Roles = ("Admin"))]
     public class InstrctorController : Controller
     {
         private readonly IInstructorReposatory instructorReposatory;
@@ -16,6 +21,7 @@ namespace ExaminationSystemProject.Controllers
 
         }
 
+        [Authorize(Roles = ("Instructor"))]
         //Instrctor/Index
         public IActionResult Index()
         {
@@ -29,6 +35,7 @@ namespace ExaminationSystemProject.Controllers
         }
 
 
+        [Authorize(Roles = ("Instructor"))]
         public IActionResult Details()
         {
             int id= int.Parse(User.FindFirst("UserId").Value);
@@ -37,9 +44,11 @@ namespace ExaminationSystemProject.Controllers
                 return View(instructorReposatory.GetById(id));
 
             }
-            return RedirectToAction("GetInstructors");
+            return RedirectToAction("Indexx");
 
         }
+
+        [Authorize(Roles = ("Instructor"))]
         public IActionResult ShowInstructorCourseAndExams()
         {
             int id = int.Parse(User.FindFirst("UserId").Value);
