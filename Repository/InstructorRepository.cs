@@ -55,9 +55,10 @@ namespace MVC.Reposatories
 
         public void Edit(int Id, Instructor instructor)
         {
-            context.Instructors.Update(instructor);
-            context.SaveChanges();
-
+                Instructor std = GetById(Id);
+                std.Name = instructor.Name;
+                std.Address = instructor.Address;
+                context.SaveChanges();
         }
 
 

@@ -28,11 +28,17 @@ namespace ExaminationSystem.Reprository
 
         public void Edit(int Id, Course course)
         {
-            context.Courses.Update(course);
+            Course co = GetById(Id);
+            co.Name = course.Name;
+            co.MinDegree = course.MinDegree;
+            co.MaxDegree = course.MaxDegree;
+            co. Description = course.Description;
+            co.InstructorID = course.InstructorID;
+
             context.SaveChanges();
 
-        }
 
+        }
         public List<Course> GetAll()
         {
             return context.Courses.ToList();

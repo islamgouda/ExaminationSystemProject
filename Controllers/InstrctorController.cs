@@ -92,9 +92,10 @@ namespace My_Tasks.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
+
             Instructor ins = instructorReposatory.GetById(id);
 
-            if (id == null)
+            if (ins == null)
             {
                 return NotFound();
             }
@@ -106,18 +107,17 @@ namespace My_Tasks.Controllers
         {
             Instructor old = instructorReposatory.GetById(id);
 
-            if (ins.Name != null)
-            {
+          //  if (ins.Name != null)
+            //{
                 old.Name = ins.Name;
                 old.Address = ins.Address;
 
                 instructorReposatory.Edit(id, ins);
 
                 return RedirectToAction("GetInstructors");
-            }
+            //}
 
 
-            return View("Edit", ins);
         }
 
 
