@@ -52,7 +52,13 @@ namespace ExaminationSystemProject.Repository
             return exams;
         }
 
-
+        public void SetStudentDegree(int StdID, int ExamID, int degree)
+        {
+            Student_Exam student_Exam = context.student_Exams.Where(s => s.StudentID == StdID)
+                                                        .FirstOrDefault(e => e.ExamID == ExamID);
+            student_Exam.StudentDegree = degree;
+            context.SaveChanges();
+        }
 
 
     }

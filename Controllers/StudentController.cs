@@ -12,16 +12,20 @@ namespace ExaminationSystemProject.Controllers
     {
         private readonly IStudentRepository studentRepo;
         private readonly ICourseReprository couresRepo;
+        private readonly IExam examRepo;
         private readonly IRegisterRepository registerRepo;
         private readonly IStudentExamRepository stdExamRrpo;
+        private readonly IAnswer answerRepo;
 
-        public StudentController(IStudentRepository _student, ICourseReprository _couresRepo,
-                                 IRegisterRepository _registerRepo, IStudentExamRepository _stdExamRrpo)
+        public StudentController(IStudentRepository _student, ICourseReprository _couresRepo, IExam _exam,
+            IRegisterRepository _registerRepo, IStudentExamRepository _stdExamRrpo, IAnswer answerRepo)
         {
             studentRepo = _student;
             couresRepo = _couresRepo;
+            examRepo = _exam;
             registerRepo = _registerRepo;
             stdExamRrpo = _stdExamRrpo;
+            this.answerRepo = answerRepo;
         }
 
         public IActionResult Index()
@@ -168,6 +172,64 @@ namespace ExaminationSystemProject.Controllers
             if(myExams.Count == 0)
                 ViewBag.hasExam = false;
             return View(myExams);
+        }
+        [Authorize(Roles = ("Student"))]
+        [HttpGet]
+        public IActionResult SolveExam(int ExamID)
+        {
+            ViewBag.examID = ExamID;
+            ExamAnswerViewModel examAnswerVM = new ExamAnswerViewModel();
+
+            examAnswerVM.Questionpools = examRepo.GetQuistions(ExamID);
+            Answer answers;
+            examAnswerVM.Answers = new List<Answer>();
+            foreach (var item in examAnswerVM.Questionpools)
+            {
+                if (item.Type == "ms")
+                {
+                    examAnswerVM.Answers.Add(answerRepo.GetAnswer(item.ID));
+                }
+            }
+            return View(examAnswerVM);
+        }
+        [Authorize(Roles = ("Student"))]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult SolveExam(int ExamID, Dictionary<int, string> answers) //string[] 
+        {
+            int sum = 0;
+            int stdID = 1;
+            List<Questionpool> ExamQuestion = examRepo.GetQuistions(ExamID);
+            foreach (var item in ExamQuestion)
+            {
+                if (answers.ContainsKey(item.ID))
+                {
+                    if (item.Type == "tf")
+                    {
+                        if (answers[item.ID] == item.Correctanswer)
+                        {
+                            sum += item.Degree;
+                        }
+                    }
+                    else if (item.Type == "txt")
+                    {
+                        if (answers[item.ID] == item.Correctanswer)
+                        {
+                            sum += item.Degree;
+                        }
+                    }
+                    else if (item.Type == "ms")
+                    {
+                        if (answers[item.ID] == item.Correctanswer)
+                        {
+                            sum += item.Degree;
+                        }
+                    }
+
+                }
+            }
+            stdExamRrpo.SetStudentDegree(stdID, ExamID, sum);
+            return NotFound();
         }
     }
 }

@@ -35,11 +35,12 @@
                     {
                         @if(DateTime.Compare(item.Start,DateTime.Now) <= 0)
                         {
-                            <a href="" class="btn btn-warning">Answer Now</a>
+@*                            href="/Student/SolveExam/@item.Id" name="ExamID"
+*@                            <a asp-action="SolveExam" asp-route-ExamID="@item.Id"  class="btn btn-warning">Answer Now</a>
                         }
                         else
                         {
-                            <a href="" class="btn btn-warning disabled">Answer</a>
+                            <a href="/Student/SolveExam/@item.Id" class="btn btn-warning disabled">Answer</a>
                         }
                     }
                     else

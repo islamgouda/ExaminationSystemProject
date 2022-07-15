@@ -13,6 +13,6 @@ namespace ExaminationSystemProject.Repository
         public void Delete(int id);
         public void AddQuestionsToExam(int EID, int QID);
         Exam GetByStudentIdWithCourse(int stdID);
-
+        List<Questionpool> GetQuistions(int examID);
     }
 }
