@@ -1,0 +1,17 @@
+﻿@model ExaminationSystemProject.Models.Questionpool
+
+@{
+    ViewData["Title"] = "edit";
+}
+
+<h1>edit</h1>
+
+<h4>Questionpool</h4>
+<hr />
+<form method="post" action="/question/edit/">
+    <input type="text" name="Type" value="@Model.Type" />
+</form>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

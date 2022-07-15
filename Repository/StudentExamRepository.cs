@@ -5,10 +5,12 @@ namespace ExaminationSystemProject.Repository
     public class StudentExamRepository : IStudentExamRepository
     {
         private readonly Context context;
+        private readonly IExam examRepo;
 
-        public StudentExamRepository(Context _context)
+        public StudentExamRepository(Context _context, IExam _examRepo)
         {
             context = _context;
+            examRepo = _examRepo;
         }
         public List<Student_Exam> GetAll()
         {
@@ -38,10 +40,20 @@ namespace ExaminationSystemProject.Repository
             context.SaveChanges();
         }
 
-        
+        public List<Exam> GetStudentExams(int StdId)
+        {
+            List<int> student_Exam_IDs = context.student_Exams.Where(s => s.StudentID == StdId)
+                                                              .Select(s => s.ExamID).ToList();
+            List<Exam> exams = new List<Exam>();
+            foreach (var item in student_Exam_IDs)
+            {
+                exams.Add(examRepo.GetByStudentIdWithCourse(item));
+            }
+            return exams;
+        }
 
-        
 
-        
+
+
     }
 }
