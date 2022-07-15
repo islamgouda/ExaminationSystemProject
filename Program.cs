@@ -34,7 +34,6 @@ builder.Services.AddScoped<IStudentExamRepository, StudentExamRepository>();
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
-<<<<<<< HEAD
 builder.Services.AddScoped<IRegisterRepository, RegisterRepository>();
 builder.Services.AddScoped<IInstructorReposatory, InstructorRepository>();
 
@@ -44,8 +43,6 @@ builder.Services.AddScoped<IInstructorReposatory, InstructorRepository>();
 >>>>>>> parent of 18053bb (Merge pull request #10 from A7MED-TAREK/master)
 =======
 >>>>>>> parent of 18053bb (Merge pull request #10 from A7MED-TAREK/master)
-=======
->>>>>>> parent of 3092022 (Student Exam)
 
 
 
