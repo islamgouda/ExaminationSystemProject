@@ -32,9 +32,12 @@ builder.Services.AddScoped<IRegisterRepository, RegisterRepository>();
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 builder.Services.AddScoped<IStudentExamRepository, StudentExamRepository>();
 <<<<<<< HEAD
+<<<<<<< HEAD
 builder.Services.AddScoped<IRegisterRepository, RegisterRepository>();
 builder.Services.AddScoped<IInstructorReposatory, InstructorRepository>();
 
+=======
+>>>>>>> parent of 18053bb (Merge pull request #10 from A7MED-TAREK/master)
 =======
 >>>>>>> parent of 18053bb (Merge pull request #10 from A7MED-TAREK/master)
 
