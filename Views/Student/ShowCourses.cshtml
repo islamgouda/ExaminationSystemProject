@@ -1,0 +1,30 @@
+﻿@model List<Course>
+@{
+    ViewData["Title"] = "ShowCourses";
+    int i = 1;
+}
+
+<h1>My Courses</h1>
+
+<table class="table table-hover">
+    <tr class="row">
+        <th class="col ps-5">No.</th>
+        <th class="col ps-5">Name</th>
+        <th class="col ps-5"></th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    <tr class="row">
+        <td class="col ps-5">@(i++)</td>
+        <td class="col ps-5">@item.Name</td>
+
+
+        <td class="col ps-5">
+            <a href="" class="btn btn-warning">Exam</a>
+        </td>
+    </tr>
+}
+
+</table>
+<a href="/Student/Details/@ViewBag.StdCrsID" class="btn btn-secondary">Back To Details</a>  
