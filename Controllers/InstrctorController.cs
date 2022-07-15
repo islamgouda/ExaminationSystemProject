@@ -15,6 +15,12 @@ namespace My_Tasks.Controllers
             this.instructorReposatory = _instructorReposatory;
 
         }
+
+        //Instrctor/Index
+        public IActionResult Indexx()
+        {
+            return View("Index");
+        }
         [HttpGet]
         public IActionResult GetInstructors()
         {
@@ -23,14 +29,22 @@ namespace My_Tasks.Controllers
         }
 
 
-        public IActionResult Details(int id)
+        public IActionResult Details()
         {
+            int id= int.Parse(User.FindFirst("UserId").Value);
             if (instructorReposatory.GetById(id) != null)
             {
                 return View(instructorReposatory.GetById(id));
 
             }
             return RedirectToAction("GetInstructors");
+
+        }
+        public IActionResult ShowInstructorCourseAndExams()
+        {
+            int id = int.Parse(User.FindFirst("UserId").Value);
+            List<Exam> res= instructorReposatory.AllInsExams(id);
+            return View(res);
 
         }
 
@@ -92,9 +106,10 @@ namespace My_Tasks.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
+
             Instructor ins = instructorReposatory.GetById(id);
 
-            if (id == null)
+            if (ins == null)
             {
                 return NotFound();
             }
@@ -106,18 +121,17 @@ namespace My_Tasks.Controllers
         {
             Instructor old = instructorReposatory.GetById(id);
 
-            if (ins.Name != null)
-            {
+          //  if (ins.Name != null)
+            //{
                 old.Name = ins.Name;
                 old.Address = ins.Address;
 
                 instructorReposatory.Edit(id, ins);
 
                 return RedirectToAction("GetInstructors");
-            }
+            //}
 
 
-            return View("Edit", ins);
         }
 
 

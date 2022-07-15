@@ -20,11 +20,11 @@ namespace ExaminationSystemProject.Controllers
 
 
 
-        
+        [HttpGet]
         public IActionResult Index()
         {
-            List<Course> courses = courseReprository.GetAll();
-            return View("Index",courses);
+            
+            return View(courseReprository.GetAll());
         }
 
         public IActionResult Create()
@@ -63,31 +63,33 @@ namespace ExaminationSystemProject.Controllers
            
             Course course=courseReprository.GetById(id);
 
-            if (id == null)
-            {
-                return NotFound();  
-            }
+            //if (course == null)
+            //{
+            //    return NotFound();  
+            //}
             return View(course);
 
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Edit(int id,Course Newcourse)
         {
             Course oldCourse = courseReprository.GetById(id);
 
-            if (Newcourse.Name != null)
-            {
+            //if (Newcourse.Name != null)
+            
                 oldCourse.Name = Newcourse.Name;
                 oldCourse.MaxDegree = Newcourse.MaxDegree;
                 oldCourse.MinDegree = Newcourse.MinDegree;
                 oldCourse.Description = Newcourse.Description;
                 oldCourse.InstructorID = Newcourse.InstructorID;
 
-                courseReprository.Edit(id,Newcourse);
-                return RedirectToAction("Index");
-            }
+                courseReprository.Edit(id, Newcourse);
 
-            return View(Newcourse);
+                return RedirectToAction("Index");
+
+            
+
         }
 
 

@@ -1,6 +1,7 @@
 ﻿@model List<Course>
 @{
     ViewData["Title"] = "Index";
+
 }
     
 <h1>Index</h1>
@@ -23,6 +24,7 @@
 @foreach (var item in Model)
 {
     <tr>
+
         <td>@item.ID</td>
         <td>@item.Name</td>
         <td>@item.MaxDegree</td>

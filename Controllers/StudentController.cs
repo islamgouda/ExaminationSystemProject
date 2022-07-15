@@ -21,9 +21,9 @@ namespace ExaminationSystemProject.Controllers
             registerRepo = _registerRepo;
             stdExamRrpo = _stdExamRrpo;
         }
-        public IActionResult Index()
+        public IActionResult Indexx()
         {
-            return View(studentRepo.GetAll());
+            return View("Index",studentRepo.GetAll());
         }
 
         [HttpGet]

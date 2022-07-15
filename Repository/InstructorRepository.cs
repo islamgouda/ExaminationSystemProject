@@ -1,4 +1,5 @@
 ﻿using ExaminationSystemProject.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace MVC.Reposatories
 {
@@ -11,7 +12,12 @@ namespace MVC.Reposatories
             context = _context;
         }
 
-
+        public List<Exam> AllInsExams(int id)
+        {
+            List < Exam > res=new List<Exam>();
+            res = context.Exams.Include(c=>c.Course).Where(i=>i.InstructorId==id).ToList();
+            return res;
+        }
 
 
         public List<Instructor> Getall()
@@ -55,9 +61,10 @@ namespace MVC.Reposatories
 
         public void Edit(int Id, Instructor instructor)
         {
-            context.Instructors.Update(instructor);
-            context.SaveChanges();
-
+                Instructor std = GetById(Id);
+                std.Name = instructor.Name;
+                std.Address = instructor.Address;
+                context.SaveChanges();
         }
 
 
