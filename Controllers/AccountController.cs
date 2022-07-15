@@ -4,7 +4,7 @@ using ExaminationSystemProject.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using MVC.Reposatories;
+using ExaminationSystemProject.Reposatories;
 using System.Security.Claims;
 
 namespace ExaminationSystemProject.Controllers

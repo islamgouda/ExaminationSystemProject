@@ -26,7 +26,7 @@ namespace ExaminationSystemProject.Controllers
 
         public IActionResult Index()
         {
-            return View("Index",studentRepo.GetAll());
+            return View(studentRepo.GetAll());
         }
 
         [HttpGet]
