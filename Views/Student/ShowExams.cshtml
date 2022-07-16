@@ -2,6 +2,9 @@
 @{
     ViewData["Title"] = "ShowExams";
     int i = 1;
+    int id = ViewBag.StdCrsID;
+    string MyID = id.ToString();
+    //bool isFinished = (bool)ViewData[MyID];
 }
 
 <h1>My Exams</h1>
@@ -31,24 +34,38 @@
 
 
             <td class="col ps-5">
-                    @if (DateTime.Compare(item.End,DateTime.Now) > 0)
+                @if(ViewData.ContainsKey(item.Id.ToString()))
+                {
+                    if ((bool)ViewData[item.Id.ToString()])
                     {
-                        @if(DateTime.Compare(item.Start,DateTime.Now) <= 0)
-                        {
-@*                            href="/Student/SolveExam/@item.Id" name="ExamID"
-*@                            <a asp-action="SolveExam" asp-route-ExamID="@item.Id"  class="btn btn-warning">Answer Now</a>
-                        }
-                        else
-                        {
-                            <a href="/Student/SolveExam/@item.Id" class="btn btn-warning disabled">Answer</a>
-                        }
+                            <a href="" class="btn btn-success disabled">Finished</a>
+                            <a asp-action="ShowResult" asp-route-ExamID="@item.Id" asp-route-StdID="@id" class="btn btn-success">Result</a>
                     }
                     else
                     {
-                        <a href="" class="btn btn-danger disabled">Time Ended</a>
+                        @if (DateTime.Compare(item.End,DateTime.Now) > 0)
+                        {
+                            @if(DateTime.Compare(item.Start,DateTime.Now) <= 0)
+                            {
+                                @*href="/Student/SolveExam/@item.Id" name="ExamID"*@
+                                <a asp-action="SolveExam" asp-route-ExamID="@item.Id" asp-route-StdID="@id"  class="btn btn-warning">Answer Now</a>
+                            }
+                            else
+                            {
+                                <a href="/Student/SolveExam/@item.Id" class="btn btn-warning disabled">Soon</a>
+                            }
+                        }
+                        else
+                        {
+                            <a href="" class="btn btn-danger disabled">Time Ended</a>
+                        }
                     }
-                    
-            </td>
+                }
+                else
+                {
+                        
+                }
+                </td>
         </tr>
     }
     </table>
@@ -57,5 +74,5 @@ else{
     <h2 class="text-center">There are No Exams now</h2>
 }
     <div class="text-center">
-        <a href="/Student/Details/@ViewBag.StdCrsID" class="btn btn-secondary">Back To Deatils</a>
+        <a href="/Student/Details/@id" class="btn btn-secondary">Back To Deatils</a>
     </div>

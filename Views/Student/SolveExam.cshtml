@@ -7,7 +7,7 @@
 
 <h1>Exam</h1>
 
-<form method="post" asp-action="SolveExam" asp-route-ExamID="@ViewBag.examID" asp-route-StdID="@ViewBag.examID">
+<form method="post" asp-action="SolveExam" asp-route-ExamID="@ViewBag.examID" asp-route-StdID="@ViewBag.StdID">
     @foreach (var Quistion in Model.Questionpools)
     {
         <label class="form-label" ><span>@(i++). </span> @Quistion.Questiontxt</label>

@@ -20,7 +20,10 @@ namespace ExaminationSystemProject.Repository
         {
             return context.student_Exams.FirstOrDefault(s => s.Id == Id);
         }
-
+        public List<Student_Exam> GetByStudentID(int stdID)
+        {
+            return context.student_Exams.Where(s => s.StudentID == stdID).ToList();
+        }
         public void Insert(Student_Exam StudentExam)
         {
             context.student_Exams.Add(StudentExam);
@@ -59,6 +62,16 @@ namespace ExaminationSystemProject.Repository
             student_Exam.StudentDegree = degree;
             context.SaveChanges();
         }
+
+
+        public void GetStudentDegree(int StdID, int ExamID, int degree)
+        {
+            Student_Exam student_Exam = context.student_Exams.Where(s => s.StudentID == StdID)
+                                                        .FirstOrDefault(e => e.ExamID == ExamID);
+            student_Exam.StudentDegree = degree;
+            context.SaveChanges();
+        }
+
         public List<Student_Exam> getStudentExamsByExamID(int id)
         {
             return context.student_Exams.Where(e => e.ExamID == id).ToList();
