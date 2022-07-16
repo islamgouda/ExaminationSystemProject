@@ -15,6 +15,8 @@ namespace ExaminationSystemProject.Repository
         Exam GetByStudentIdWithCourse(int stdID);
         List<Questionpool> GetQuistions(int examID);
         public List<Exam> GetByInstructorID(int id);
-        
+        Exam GetByIdWithCourse(int id);
+
+
     }
 }

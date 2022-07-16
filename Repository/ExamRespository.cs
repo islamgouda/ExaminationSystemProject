@@ -34,7 +34,10 @@ namespace ExaminationSystemProject.Repository
         {
             throw new NotImplementedException();
         }
-
+        public Exam GetByIdWithCourse(int id)
+        {
+            return context.Exams.Include(c => c.Course).FirstOrDefault(e => e.Id == id);
+        }
         public Exam GetById(int id)
         {
             Exam x = context.Exams.FirstOrDefault(i => i.Id == id);
