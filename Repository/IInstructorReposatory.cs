@@ -14,7 +14,7 @@ namespace ExaminationSystemProject.Reposatories
         bool InsertInstructor(Instructor e);
         int InsertWithId(Instructor e);
 
-        void DeleteInstructor(int id);
+        bool DeleteInstructor(int id);
 
         void Edit(int Id, Instructor instructor);
         List<Exam> AllInsExams(int id);

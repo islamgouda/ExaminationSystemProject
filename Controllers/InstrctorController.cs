@@ -185,9 +185,11 @@ namespace ExaminationSystemProject.Controllers
 
         public IActionResult DeleteInstructor(int id)
         {
-            instructorReposatory.DeleteInstructor(id);
-           
-            return RedirectToAction("GetInstructors");
+            bool x= instructorReposatory.DeleteInstructor(id);
+            if (x)
+                return RedirectToAction("GetInstructors");
+            else
+                return Content("Can not remove This instructor");
 
         }
 
