@@ -1,10 +1,39 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
-}
+}  
+ <div class="container-fluid">
+<img src="~/assets/img/home-bg.jpg" style="width:100%; height:400px;" />   
+</div>
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
+     <h1>Online Examination System </h1>
+     <span class="subheading">Test Your Students</span>
+     <h1 class="display-4" style="color:SlateBlue;">Welcome</h1>
     <p>Online Examination System To Test,Evaluate Students of Multiple Courses</p>
+</div>
+<div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <!-- Post preview-->
+                     <hr class="my-4" />
+                    <div class="post-preview">
+                        <a>
+                            <p>Hello instructor You Can Now Control Exams of Your Courses Autumaticly</p>
+                            <a class="btn btn-warning">Sign up | Sign in now</a>
+                        </a>
+                       
+                    </div>
+                    <!-- Divider-->
+                    <hr class="my-4" />
+                    <!-- Post preview-->
+                    <div class="post-preview">
+                        <a>
+                         <p class="post-title">welcome to your new student zone. This services are tailored to meet your expectations as part of our continuous development of student services MSA Values your feedback and Comments at anytime. If you have any questions please contact us.</p></a>
+                                                      <a class="btn btn-warning">Sign up | Sign in now</a>
+
+                     </div>
+                   
+        </div>
     @if(User.IsInRole("Admin"))
     {
        
