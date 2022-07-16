@@ -1,0 +1,38 @@
+﻿@model  ExaminationSystemProject.ViewModel.RolesViewWithUsers
+
+@{
+    ViewData["Title"] = "UsersWithRoles";
+}
+
+
+ @if(Model.Admns.Count()>0)
+        {
+            <h1>@Model.Admns.Count() </h1>
+        }
+<table class="table">
+    <thead>
+        <tr>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>ID</td>
+            <td>Name</td>
+            <td>Type</td>
+        </tr>
+        @foreach (var item in Model.Admns) {
+        <tr>
+             <td>
+                @item.UserId
+            </td>
+            <td>
+                @item.UserName
+            </td>
+            <td>
+                @item.Type
+            </td> 
+        </tr>
+}
+    </tbody>
+</table>

@@ -2,11 +2,12 @@
 
 @{
     ViewData["Title"] = "New";
+   
 }
 
 <h1>New</h1>
 
-<h4>RoleViewModel</h4>
+<h4>Add New Role</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -27,4 +28,7 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
-
+@foreach (var item in  ViewBag.AdminsRoles)
+{
+    <h1>@item</h1>
+}
