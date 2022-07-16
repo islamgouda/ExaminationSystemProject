@@ -1,4 +1,4 @@
-﻿using ExaminationSystemProject.Models;
+using ExaminationSystemProject.Models;
 using ExaminationSystemProject.Repository;
 using ExaminationSystemProject.ViewModel;
 using Microsoft.AspNetCore.Authorization;
@@ -66,7 +66,7 @@ namespace ExaminationSystemProject.Controllers
                         await signInManager.SignInWithClaimsAsync(userModel, isPersistent: false, claims);
                         string name = User.Identity.Name;
                         if(await userManager.IsInRoleAsync(userModel, "Admin"))
-                              return RedirectToAction("Index", "Home");
+                              return RedirectToAction("adminDash", "Instrctor");
                         if (await userManager.IsInRoleAsync(userModel, "Student"))
                             return RedirectToAction("Index", "Home");
                         if (await userManager.IsInRoleAsync(userModel, "Instructor"))
@@ -144,9 +144,9 @@ namespace ExaminationSystemProject.Controllers
                     {
                         return RedirectToAction("addstudentrole", userModel);
                     }
-                    
 
-                    return RedirectToAction("Index","Home");
+
+
                 }
 
                 else

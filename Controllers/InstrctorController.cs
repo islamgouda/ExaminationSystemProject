@@ -29,6 +29,11 @@ namespace ExaminationSystemProject.Controllers
         {
             return View("Index");
         }
+        public IActionResult adminDash()
+
+        {
+            return View();
+        }
         [HttpGet]
         [Authorize(Roles = ("Admin"))]
         public IActionResult GetInstructors()
