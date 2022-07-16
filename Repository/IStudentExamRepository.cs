@@ -18,6 +18,7 @@ namespace ExaminationSystemProject.Repository
         List<Student_Exam> GetByStudentID(int stdID);
 
         public List<Student_Exam> getStudentExamsByExamID(int id);
+        Student_Exam GetStudentExam(int StdID, int ExamID);
 
     }
 }

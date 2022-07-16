@@ -77,5 +77,14 @@ namespace ExaminationSystemProject.Repository
             return context.student_Exams.Where(e => e.ExamID == id).ToList();
         }
 
+
+
+
+        public Student_Exam GetStudentExam(int StdID, int ExamID)
+        {
+            Student_Exam student_Exam = context.student_Exams.Where(s => s.StudentID == StdID)
+                                                        .FirstOrDefault(e => e.ExamID == ExamID);
+            return student_Exam;
+        }
     }
 }

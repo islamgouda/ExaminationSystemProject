@@ -241,11 +241,22 @@ namespace ExaminationSystemProject.Controllers
             return Redirect($"/Student/ShowExams/{StdID}");
         }
 
-
-        //public IActionResult ShowResult(int ExamID, int StdID)
-        //{
-        //    stdExamRrpo.
-        //}
+        //////////////////////////////////////////////////////////////////
+        public IActionResult ShowResult(int ExamID, int StdID)
+        {
+            ViewBag.StdID = StdID;
+            ExamResultViewModel examResultVM = new ExamResultViewModel();
+            Student_Exam student_Exam = stdExamRrpo.GetStudentExam(StdID , ExamID);
+            Course course = examRepo.GetByIdWithCourse(ExamID).Course;
+            examResultVM.studentName = studentRepo.Get(StdID).Name;
+            examResultVM.CourseName = course.Name;
+            examResultVM.studentDegree = student_Exam.StudentDegree;
+            if (student_Exam.StudentDegree >= course.MinDegree)
+                examResultVM.isPassed = true;
+            else
+                examResultVM.isPassed = false;
+            return View(examResultVM);
+        }
 
     }
     

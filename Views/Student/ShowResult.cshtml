@@ -1,0 +1,28 @@
+﻿@model ExaminationSystemProject.ViewModel.ExamResultViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    string ResultColor = "text-danger";
+    string State = "Failed";
+    if (Model.isPassed)
+    {
+        ResultColor = "text-success";
+        State = "Passed";
+    }
+}
+
+<div class="card text-center">
+  <div class="card-header ">
+    <h4><strong>@Model.studentName</strong></h4>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title @ResultColor">@Model.CourseName</h5>
+    <h5 class="card-title @ResultColor">@State</h5>
+    <h5 class="card-title "><strong>@Model.studentDegree</strong></h5>
+    <a asp-controller="Student" asp-action="ShowExams" asp-route-id="@ViewBag.StdID" class="btn btn-primary">Go Back</a>
+  </div>
+  <div class="card-footer text-muted">
+    
+  </div>
+</div>
