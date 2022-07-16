@@ -5,7 +5,7 @@ using ExaminationSystemProject.Models;
 
 using ExaminationSystemProject.Reposatories;
 using Microsoft.AspNetCore.Authorization;
-
+using ExaminationSystem.Reprository;
 
 namespace ExaminationSystemProject.Controllers
 {
@@ -14,11 +14,12 @@ namespace ExaminationSystemProject.Controllers
     public class InstrctorController : Controller
     {
         private readonly IInstructorReposatory instructorReposatory;
+        private readonly ICourseReprository courseReprository;
 
-        public InstrctorController(IInstructorReposatory _instructorReposatory)
+        public InstrctorController(IInstructorReposatory _instructorReposatory,ICourseReprository _courseReprository)
         {
             this.instructorReposatory = _instructorReposatory;
-
+            courseReprository = _courseReprository;
         }
 
         [Authorize(Roles = ("Instructor,Admin"))]
@@ -204,7 +205,12 @@ namespace ExaminationSystemProject.Controllers
             return View();
         }
 
-
+        public IActionResult showCourses()
+        {
+            int inID = int.Parse(User.FindFirst("UserId").Value);
+           List<Course> courses= courseReprository.GetCoursesByInstructorID(inID);
+            return View(courses);
+        }
 
     }
 }
