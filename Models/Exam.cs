@@ -16,8 +16,11 @@ namespace ExaminationSystemProject.Models
         [ForeignKey("Instructor")]
         public int InstructorId { set; get; }
 
-       
+        [Display(Name ="Start")]
+        [DataType(DataType.DateTime)]
         public DateTime Start { set; get; }
+        [Display(Name = "End")]
+        [DataType(DataType.DateTime)]
         public DateTime End { set; get; }
         public int degree { set; get; }
         public List<ExamQuestions> ExamQuestions { set; get; }

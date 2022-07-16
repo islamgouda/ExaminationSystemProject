@@ -19,14 +19,16 @@ namespace ExaminationSystemProject.Controllers
         private readonly IStudentExamRepository studentExamRepository;
         private readonly IStudentRepository studentRepository;
         private readonly ICourseReprository courseReprository;
+        private readonly IRegisterRepository registerRepository;
         Context context=new Context();
-        public ExamController(IExam _exam,IQuestion _question, IStudentExamRepository _studentExamRepository,IStudentRepository _studentRepository,ICourseReprository _courseReprository)
+        public ExamController(IExam _exam,IQuestion _question, IStudentExamRepository _studentExamRepository,IStudentRepository _studentRepository,ICourseReprository _courseReprository, IRegisterRepository _registerRepository)
         {
             exam = _exam;
             question = _question;
             studentExamRepository = _studentExamRepository;
             studentRepository = _studentRepository;
             courseReprository = _courseReprository;
+            registerRepository = _registerRepository;
         }
         [Authorize(Roles = ("Instructor,Admin"))]
         public IActionResult Index()
@@ -80,6 +82,17 @@ namespace ExaminationSystemProject.Controllers
         {
             e.InstructorId = int.Parse(User.FindFirst("UserId").Value);
             int exID= exam.insertAndGetId(e);
+            int mycourseID = e.CourseId;
+          List<StudentCourse>studentCourses = registerRepository.GetStudentCoursesbyCourseID(mycourseID);
+            foreach(StudentCourse st in studentCourses)
+            {
+                Student_Exam student_Exam = new Student_Exam();
+                student_Exam.StudentID = st.StudentID;
+                student_Exam.ExamID = exID;
+                student_Exam.StudentDegree = -1;
+                studentExamRepository.Insert(student_Exam);
+            }
+
             List<Questionpool> questionpools = context.Questionpools.Where(c => c.CourseId == courseID).ToList();
             ExViewModel ex = new ExViewModel();
             ex.questionpools = new List<Questionpool>();
@@ -109,15 +122,17 @@ namespace ExaminationSystemProject.Controllers
                // }
            }
             
-            return Content("saved");
+            return Redirect("/Instrctor/Dashboard");
 
         }
+        [Authorize(Roles = ("Instructor,Admin"))]
         public IActionResult showInstructorExams()
         {
             int  id= int.Parse(User.FindFirst("UserId").Value);
            List<Exam> exams= exam.GetByInstructorID(id);
             return View(exams);
         }
+        [Authorize(Roles = ("Instructor,Admin"))]
         public IActionResult getExamQuestions(int id)
         {
             List<ExamQuestions>examQuestions=context.ExamQuestions.Where(x => x.ExamID == id).ToList();
@@ -128,7 +143,8 @@ namespace ExaminationSystemProject.Controllers
             }
             return View(questionpools);
         }
-       public IActionResult GetExamStudentDegrees(int id)
+        [Authorize(Roles = ("Instructor,Admin"))]
+        public IActionResult GetExamStudentDegrees(int id)
         {
             List<Student_Exam> student_Exams = studentExamRepository.getStudentExamsByExamID(id);
             List<studentDegreeVM> studentDegrees = new List<studentDegreeVM>();
@@ -140,7 +156,17 @@ namespace ExaminationSystemProject.Controllers
                 st.ST_name = studentRepository.Get(s.StudentID).Name;
                 Exam ex = exam.GetById(s.ExamID);
                 int exid = ex.CourseId;
-                st.CourseName = courseReprository.GetById(exid).Name;
+                Course course = courseReprository.GetById(exid);
+                st.CourseName = course.Name;
+                int mindegree = course.MinDegree;
+                if (mindegree <= st.Degree)
+                {
+                    st.state = "text-success";
+                }
+                else
+                {
+                    st.state = "text-danger";
+                }
                 studentDegrees.Add(st);
                 
             }

@@ -1,5 +1,5 @@
 ﻿@model List<ExaminationSystemProject.ViewModel.studentDegreeVM>
-<table class="table-border tab-content table-hover">
+<table class="table table-content table-hover">
 
     <tr>
         <th>
@@ -11,11 +11,14 @@
         <th>
             CourseName
         </th>
+        <th>
+            state
+        </th>
     </tr>
     @{
         foreach (var item in Model)
         {
-            <tr>
+            <tr class="@item.state">
             <td>
             @item.ST_name
             </td>
@@ -25,7 +28,20 @@
             <td>
             @item.CourseName
             </td>
+            @if(@item.state=="text-success"){
+                <td>
+            Success
+                    </td>
+                }
+                else
+                {
+                    <td>
+            failed
+            </td>
+                }
             </tr>
         }
     }
 </table>
+
+<a asp-controller="Exam" asp-action="showInstructorExams">Back To Exams</a>

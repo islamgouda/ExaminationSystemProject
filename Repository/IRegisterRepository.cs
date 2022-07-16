@@ -9,7 +9,8 @@ namespace ExaminationSystemProject.Repository
         List<StudentCourse> getStudentCourses(int student_id);
 
         void deleteCourse(int course_id, int student_id);
-
+      public  List<StudentCourse> GetStudentCoursesbyCourseID(int id);
 
     }
+
 }

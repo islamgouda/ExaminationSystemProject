@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Exam
+@{
     ViewData["Title"] = "New";
     SelectList CourseList = new SelectList(ViewBag.CourseList, "ID", "Name");
 }
@@ -14,13 +15,16 @@
  <label>Degree</label><br />
  <input name="degree"  /><br />
   <label>Start Time</label><br />
- <input name="Start" id="dt1" /><br />
+  @Html.EditorFor(m => m.Start, new {@class = "form-control datepicker" , @id = "dt1" })
+ <br />
   <label>End Time</label><br />
- <input name="End" id="dt1"  /><br />
+  @Html.EditorFor(m => m.End, new {@class = "form-control datepicker" , @id = "dt2" })
+ 
 @* <label>Your ID</label><br />
  <input name="InstructorId"  /><br />*@
  <input type="submit" class="btn btn-primary" value="Create" />
 </form>
+<a href="/Instrctor/Dashboard">back</a>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
     function GetStudentsData() {
@@ -45,5 +49,18 @@
             }*/
         );
     }
+
+   
     </script>
+     <script type="text/javascript">
+            $(function() {
+                $("#dt1").datepicker();
+            });
+        </script>
+
+         <script type="text/javascript">
+            $(function() {
+                $(".dt2").datepicker();
+            });
+        </script>
 

@@ -29,7 +29,7 @@
                             }
                             @if (User.IsInRole("Student"))
                             {
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="Details">Student Dashboard</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="Details" asp-route-id="@User.FindFirst("UserId").Value")">Student Dashboard</a>
                             }
                             @if (User.IsInRole("Instructor"))
                             {
