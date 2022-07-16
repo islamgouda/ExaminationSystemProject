@@ -68,7 +68,7 @@ namespace ExaminationSystemProject.Controllers
                         if(await userManager.IsInRoleAsync(userModel, "Admin"))
                               return RedirectToAction("Index", "Home");
                         if (await userManager.IsInRoleAsync(userModel, "Student"))
-                            return Content("Welcome Student");
+                            return RedirectToAction("Index", "Home");
                         if (await userManager.IsInRoleAsync(userModel, "Instructor"))
                             return RedirectToAction("Index", "Home");
                         return Content("Welcome Not Assigned role");
