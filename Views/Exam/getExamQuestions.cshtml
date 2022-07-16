@@ -1,0 +1,23 @@
+﻿@model List<Questionpool>
+<table class="table table-border table-hover">
+        <tr><th>Question Text</th><th>Type</th><th>Answer</th></tr>
+    @{
+        int c = 1;
+        foreach(Questionpool q in Model)
+                    {
+                        <tr>
+                        <td>@(c++)
+                        --
+                        <label>@q.Questiontxt</label></td>
+                       
+                       <td>
+                               <div>Type: @q.Type </div></td>
+                              <td> <div>Answer: @q.Correctanswer </div></td>
+                              
+                          
+                       </tr>
+                       
+                    }
+                }
+                </table>
+                <a asp-controller="Exam" asp-action="showInstructorExams">Back To Exams</a>

@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace ExaminationSystemProject.Controllers
 {
 
-    [Authorize(Roles = ("Admin"))]
+    
     public class InstrctorController : Controller
     {
         private readonly IInstructorReposatory instructorReposatory;
@@ -21,7 +21,7 @@ namespace ExaminationSystemProject.Controllers
 
         }
 
-        [Authorize(Roles = ("Instructor"))]
+        [Authorize(Roles = ("Instructor,Admin"))]
 
         //Instrctor/Indexx
         public IActionResult Indexx()
@@ -30,6 +30,7 @@ namespace ExaminationSystemProject.Controllers
             return View("Index");
         }
         [HttpGet]
+        [Authorize(Roles = ("Admin"))]
         public IActionResult GetInstructors()
         {
             List<Instructor> instructors = instructorReposatory.Getall();
@@ -92,7 +93,7 @@ namespace ExaminationSystemProject.Controllers
 
 
         [HttpGet("{id:int}")]
-
+        [Authorize(Roles = ("Admin"))]
         public IActionResult FindInstrucor(int id)
         {
             if (instructorReposatory.GetById(id) == null)
@@ -104,6 +105,7 @@ namespace ExaminationSystemProject.Controllers
         }
 
         [HttpGet("{name:alpha}")]
+        [Authorize(Roles = ("Admin"))]
 
         public IActionResult FindInstructorByName(string name)
         {
@@ -119,11 +121,13 @@ namespace ExaminationSystemProject.Controllers
 
 
         [HttpGet]
+        [Authorize(Roles = ("Admin"))]
         public IActionResult AddInstructor()
         {
             return View("AddInstructor");
         }
         [HttpPost]
+        [Authorize(Roles = ("Admin"))]
         public IActionResult AddInstructor(Instructor i)
         {
             if (ModelState.IsValid == true)
@@ -145,6 +149,7 @@ namespace ExaminationSystemProject.Controllers
 
 
         [HttpGet]
+        [Authorize(Roles = ("Admin"))]
         public IActionResult Edit(int id)
         {
 
@@ -158,6 +163,7 @@ namespace ExaminationSystemProject.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = ("Admin"))]
         public IActionResult Edit(int id, Instructor ins)
         {
             Instructor old = instructorReposatory.GetById(id);
@@ -175,17 +181,23 @@ namespace ExaminationSystemProject.Controllers
 
         }
 
+        [Authorize(Roles = ("Admin"))]
 
         public IActionResult DeleteInstructor(int id)
         {
-            instructorReposatory.DeleteInstructor(id);
-           
-            return RedirectToAction("GetInstructors");
+            bool x= instructorReposatory.DeleteInstructor(id);
+            if (x)
+                return RedirectToAction("GetInstructors");
+            else
+                return Content("Can not remove This instructor");
 
         }
 
 
-
+        public IActionResult Dashboard()
+        {
+            return View();
+        }
 
 
 

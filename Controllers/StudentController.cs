@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ExaminationSystemProject.Controllers
 {
-    //[Authorize(Roles = ("Admin"))]
     public class StudentController : Controller
     {
         private readonly IStudentRepository studentRepo;
@@ -242,9 +241,12 @@ namespace ExaminationSystemProject.Controllers
             return Redirect($"/Student/ShowExams/{StdID}");
         }
 
+
         //public IActionResult ShowResult(int ExamID, int StdID)
         //{
         //    stdExamRrpo.
         //}
+
     }
+    
 }

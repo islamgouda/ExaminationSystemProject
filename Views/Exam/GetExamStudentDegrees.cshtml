@@ -1,0 +1,31 @@
+﻿@model List<ExaminationSystemProject.ViewModel.studentDegreeVM>
+<table class="table-border tab-content table-hover">
+
+    <tr>
+        <th>
+            StudentName
+        </th>
+        <th>
+            Degree
+        </th>
+        <th>
+            CourseName
+        </th>
+    </tr>
+    @{
+        foreach (var item in Model)
+        {
+            <tr>
+            <td>
+            @item.ST_name
+            </td>
+            <td>
+            @item.Degree
+            </td>
+            <td>
+            @item.CourseName
+            </td>
+            </tr>
+        }
+    }
+</table>

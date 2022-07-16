@@ -83,5 +83,9 @@ namespace ExaminationSystemProject.Repository
             }
             return Questions;
         }
+        public List<Exam> GetByInstructorID(int id)
+        {
+            return context.Exams.Where(e => e.InstructorId == id).ToList();
+        }
     }
 }

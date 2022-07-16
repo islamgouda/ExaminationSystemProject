@@ -16,14 +16,17 @@ namespace ExaminationSystemProject.Controllers
         private readonly SignInManager<ApplicationUser> signInManager;
         IInstructorReposatory InstructorReposatory;
         private readonly IStudentRepository studentRepository;
-       
+        private readonly Context context;
 
-        public AccountController(UserManager<ApplicationUser> _userManager,SignInManager<ApplicationUser> signInManager,IInstructorReposatory _instructorReposatory, IStudentRepository _studentRepository)
+
+
+        public AccountController(UserManager<ApplicationUser> _userManager,SignInManager<ApplicationUser> signInManager,IInstructorReposatory _instructorReposatory, IStudentRepository _studentRepository,Context _context)
         {
             userManager = _userManager;
             this.signInManager = signInManager;
             InstructorReposatory = _instructorReposatory;
             studentRepository = _studentRepository;
+            this.context = _context;
         }
 
 
@@ -137,6 +140,12 @@ namespace ExaminationSystemProject.Controllers
                     //createCookie
                     await signInManager.SignInWithClaimsAsync (userModel, isPersistent: false,claims);
                     string name = User.Identity.Name;
+                    if (userModel.Type == "Student")
+                    {
+                        var userModel2 = await userManager.FindByNameAsync(userModel.UserName);
+                        await userManager.AddToRoleAsync(userModel2, "Student");
+                    }
+                    
 
                     return RedirectToAction("Test");
                 }
@@ -155,7 +164,7 @@ namespace ExaminationSystemProject.Controllers
 
             return View(newUserVM);
         }
-
+       
         public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();
@@ -169,7 +178,7 @@ namespace ExaminationSystemProject.Controllers
             return Content(result);
         }
 
-        //[Authorize(Roles = ("Admin"))]
+        [Authorize(Roles = ("Admin"))]
         [HttpPost]
         public async Task<IActionResult> AddAdmin(RoleViewModel RNew)
         {
@@ -187,7 +196,18 @@ namespace ExaminationSystemProject.Controllers
             return View();
         }
 
-       
+        public ActionResult UsersWithRoles(int id)
+        {
+            RolesViewWithUsers rolesViewWithUsers = new RolesViewWithUsers();
+            if(id==1)
+            rolesViewWithUsers.Admns = userManager.GetUsersInRoleAsync("Admin").Result;
+            if (id ==2)
+                rolesViewWithUsers.Admns = userManager.GetUsersInRoleAsync("Instructor").Result;
+            if (id ==3)
+                rolesViewWithUsers.Admns = userManager.GetUsersInRoleAsync("Student").Result;
+            return View(rolesViewWithUsers);
+        }
+
 
     }
 }

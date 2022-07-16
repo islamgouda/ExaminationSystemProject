@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ExaminationSystemProject.Controllers
 {
 
-    [Authorize(Roles = ("Admin"))]
+   // [Authorize(Roles = ("Admin"))]
     public class CourseController : Controller
     {
         ICourseReprository courseReprository;
@@ -32,13 +32,14 @@ namespace ExaminationSystemProject.Controllers
             
             return View(courseReprository.GetAll());
         }
-
+        [Authorize(Roles = ("Admin"))]
         public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize(Roles = ("Admin"))]
         public IActionResult Create(Course course)
         {
             if (ModelState.IsValid)
@@ -66,6 +67,7 @@ namespace ExaminationSystemProject.Controllers
 
 
         [HttpGet]
+        [Authorize(Roles = ("Admin"))]
         public IActionResult Edit(int id)
         {
            
@@ -80,6 +82,7 @@ namespace ExaminationSystemProject.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = ("Admin"))]
         public IActionResult Edit(int id,Course Newcourse)
         {
             Course oldCourse = courseReprository.GetById(id);
@@ -102,6 +105,7 @@ namespace ExaminationSystemProject.Controllers
 
 
         [HttpGet]
+        [Authorize(Roles = ("Admin"))]
         public IActionResult Delete(int id)
         {
             if (id == null)
@@ -119,6 +123,7 @@ namespace ExaminationSystemProject.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = ("Admin"))]
         public IActionResult DeleteConfirmed(int id)
         {
             if (id == null)

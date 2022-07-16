@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ExaminationSystemProject.Controllers
 {
-    [Authorize(Roles = ("Admin"))]
+  //  [Authorize(Roles = ("Admin"))]
     public class questionController : Controller
     {
        
@@ -16,7 +16,7 @@ namespace ExaminationSystemProject.Controllers
         {
             question = _question;
         }
-        [Authorize(Roles = ("Instructor"))]
+        [Authorize(Roles = ("Instructor,Admin"))]
         public IActionResult Index()
         {
             //Questionpool questionpool = new Questionpool();
@@ -38,7 +38,7 @@ namespace ExaminationSystemProject.Controllers
         }
         Context c = new Context();
 
-        [Authorize(Roles = ("Instructor"))]
+        [Authorize(Roles = ("Instructor,Admin"))]
         public IActionResult GetQuestions(int CourseID)
         {
             return Json(c.Questionpools.Where(i => i.CourseId == CourseID).ToList());
@@ -47,7 +47,7 @@ namespace ExaminationSystemProject.Controllers
 
         [HttpGet]
 
-        [Authorize(Roles = ("Instructor"))]
+        [Authorize(Roles = ("Instructor,Admin"))]
         public IActionResult addquestion()
         {
             List<string> qlist = new List<string>();
@@ -58,7 +58,7 @@ namespace ExaminationSystemProject.Controllers
         }
         [HttpPost]
 
-        [Authorize(Roles = ("Instructor"))]
+        [Authorize(Roles = ("Instructor,Admin"))]
         public IActionResult addnewquestion(string type)
         {
             if (type == "ms") {
@@ -75,7 +75,7 @@ namespace ExaminationSystemProject.Controllers
             
         }
 
-        [Authorize(Roles = ("Instructor"))]
+        [Authorize(Roles = ("Instructor,Admin"))]
         public IActionResult multichoose(Msquestion msquestion)
         {
             Questionpool questionpool = new Questionpool();
@@ -94,7 +94,7 @@ namespace ExaminationSystemProject.Controllers
             return Content("saved");
         }
 
-        [Authorize(Roles = ("Instructor"))]
+        [Authorize(Roles = ("Instructor,Admin"))]
         public IActionResult truefalse(TFquestion tfquestion)
         {
             Questionpool questionpool = new Questionpool();
@@ -107,7 +107,7 @@ namespace ExaminationSystemProject.Controllers
             return Content("Saved");
         }
 
-        [Authorize(Roles = ("Instructor"))]
+        [Authorize(Roles = ("Instructor,Admin"))]
         public IActionResult text(txtQuestion txtQuestion)
         {
             Questionpool questionpool=new Questionpool();
@@ -122,15 +122,15 @@ namespace ExaminationSystemProject.Controllers
 
         [HttpGet]
 
-        [Authorize(Roles = ("Instructor"))]
+        [Authorize(Roles = ("Instructor,Admin"))]
 
         public IActionResult Detais(int id)
         {
             return View();
         }
 
-        
 
+        [Authorize(Roles = ("Instructor,Admin"))]
         public IActionResult edit(int qid)
         {
 
@@ -144,13 +144,13 @@ namespace ExaminationSystemProject.Controllers
 
 
 
-     
 
-        [Authorize(Roles = ("Instructor"))]
+
+        //[Authorize(Roles = ("Instructor,Admin"))]
         [HttpPost]
         //public IActionResult edit(Questionpool ques)
 
-        
+        [Authorize(Roles = ("Instructor,Admin"))]
         public IActionResult update(int id,Questionpool ques)
 
         {

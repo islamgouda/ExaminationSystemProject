@@ -63,6 +63,7 @@ namespace ExaminationSystemProject.Repository
             context.SaveChanges();
         }
 
+
         public void GetStudentDegree(int StdID, int ExamID, int degree)
         {
             Student_Exam student_Exam = context.student_Exams.Where(s => s.StudentID == StdID)
@@ -70,5 +71,11 @@ namespace ExaminationSystemProject.Repository
             student_Exam.StudentDegree = degree;
             context.SaveChanges();
         }
+
+        public List<Student_Exam> getStudentExamsByExamID(int id)
+        {
+            return context.student_Exams.Where(e => e.ExamID == id).ToList();
+        }
+
     }
 }
