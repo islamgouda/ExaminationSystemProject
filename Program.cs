@@ -39,6 +39,8 @@ builder.Services.AddScoped<IStudentExamRepository, StudentExamRepository>();
 builder.Services.AddScoped<IRegisterRepository, RegisterRepository>();
 builder.Services.AddScoped<IInstructorReposatory, InstructorRepository>();
 
+builder.Services.AddScoped<IAnswer, AnswerRepository>();
+
 //=======
 //>>>>>>> parent of 18053bb (Merge pull request #10 from A7MED-TAREK/master)
 //=======

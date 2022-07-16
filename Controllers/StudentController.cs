@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ExaminationSystemProject.Controllers
 {
-    [Authorize(Roles = ("Admin"))]
+    //[Authorize(Roles = ("Admin"))]
     public class StudentController : Controller
     {
         private readonly IStudentRepository studentRepo;
@@ -57,10 +57,10 @@ namespace ExaminationSystemProject.Controllers
             
             return RedirectToAction("Index");
         }
-        [Authorize(Roles = ("Student"))]
-        public IActionResult Details()
+        //[Authorize(Roles = ("Student"))]
+        public IActionResult Details(int id)
         {
-            int id= int.Parse(User.FindFirst("UserId").Value);
+            //int id= int.Parse(User.FindFirst("UserId").Value);
             return View(studentRepo.Get(id));
         }
 
@@ -82,7 +82,7 @@ namespace ExaminationSystemProject.Controllers
                 Address = oldStudentVM.Address
             };
             studentRepo.Edit(id, student);
-            return RedirectToAction("Index");
+            return Redirect("/Student/Index");
         }
 
         [HttpGet]
@@ -101,9 +101,9 @@ namespace ExaminationSystemProject.Controllers
             if (studentRepo.Get(id) == null)
                 return NotFound();
             studentRepo.Delete(id);
-            return RedirectToAction("Index");
+            return Redirect("/Student/Index");
         }
-        [Authorize(Roles = ("Student"))]
+        //[Authorize(Roles = ("Student"))]
         [HttpGet]
         public IActionResult RegisterCourse(int id)
         {
@@ -137,7 +137,7 @@ namespace ExaminationSystemProject.Controllers
             }
             return View(NotEnroledcourses);
         }
-        [Authorize(Roles = ("Student"))]
+        //[Authorize(Roles = ("Student"))]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult RegisterCourse(int id ,int[] checkedCourses)
@@ -147,9 +147,9 @@ namespace ExaminationSystemProject.Controllers
                 registerRepo.register(Mycourse, id);
             }
 
-            return RedirectToAction("RegisterCourse");
+            return Redirect($"/Student/RegisterCourse/{id}");
         }
-        [Authorize(Roles = ("Student"))]
+        //[Authorize(Roles = ("Student"))]
 
         public IActionResult ShowCourses(int id)
         {
@@ -162,22 +162,31 @@ namespace ExaminationSystemProject.Controllers
             }
             return View(Enroledcourses);
         }
-        [Authorize(Roles = ("Student"))]
+        //[Authorize(Roles = ("Student"))]
         public IActionResult ShowExams(int id)
         {
             ViewBag.StdExamID = id;
             ViewBag.StdCrsID = id;
             ViewBag.hasExam = true;
             List<Exam> myExams = stdExamRrpo.GetStudentExams(id);
+            List<Student_Exam> student_Exams = stdExamRrpo.GetByStudentID(id);
+            foreach (var item in student_Exams)
+            {
+                if (item.StudentDegree > 0)
+                    ViewData[item.ExamID.ToString()] = true;
+                else
+                    ViewData[item.ExamID.ToString()] = false;
+            }
             if(myExams.Count == 0)
                 ViewBag.hasExam = false;
             return View(myExams);
         }
-        [Authorize(Roles = ("Student"))]
+        //[Authorize(Roles = ("Student"))]
         [HttpGet]
-        public IActionResult SolveExam(int ExamID)
+        public IActionResult SolveExam(int ExamID, int StdID)
         {
             ViewBag.examID = ExamID;
+            ViewBag.StdID = StdID;
             ExamAnswerViewModel examAnswerVM = new ExamAnswerViewModel();
 
             examAnswerVM.Questionpools = examRepo.GetQuistions(ExamID);
@@ -192,13 +201,13 @@ namespace ExaminationSystemProject.Controllers
             }
             return View(examAnswerVM);
         }
-        [Authorize(Roles = ("Student"))]
+        //[Authorize(Roles = ("Student"))]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult SolveExam(int ExamID, Dictionary<int, string> answers) //string[] 
+        public IActionResult SolveExam(int ExamID,int StdID, Dictionary<int, string> answers) //string[] 
         {
             int sum = 0;
-            int stdID = 1;
+            //int stdID = 1;
             List<Questionpool> ExamQuestion = examRepo.GetQuistions(ExamID);
             foreach (var item in ExamQuestion)
             {
@@ -228,8 +237,14 @@ namespace ExaminationSystemProject.Controllers
 
                 }
             }
-            stdExamRrpo.SetStudentDegree(stdID, ExamID, sum);
-            return NotFound();
+            stdExamRrpo.SetStudentDegree(StdID, ExamID, sum);
+            ViewData[ExamID.ToString()] = true;
+            return Redirect($"/Student/ShowExams/{StdID}");
         }
+
+        //public IActionResult ShowResult(int ExamID, int StdID)
+        //{
+        //    stdExamRrpo.
+        //}
     }
 }
