@@ -68,14 +68,22 @@ namespace ExaminationSystemProject.Reposatories
         }
 
 
-        public void DeleteInstructor(int id)
+        public bool DeleteInstructor(int id)
         {
 
             Instructor instructor = context.Instructors.Find(id);
-
+            bool msg;
             context.Instructors.Remove(instructor);
-            context.SaveChanges();
-
+            try
+            {
+                context.SaveChanges();
+                msg = true;
+            }
+            catch(Exception e)
+            {
+                 msg=false ;
+            }
+            return msg;
 
         }
 
