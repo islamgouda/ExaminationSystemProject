@@ -19,14 +19,16 @@ namespace ExaminationSystemProject.Controllers
         private readonly IStudentExamRepository studentExamRepository;
         private readonly IStudentRepository studentRepository;
         private readonly ICourseReprository courseReprository;
+        private readonly IRegisterRepository registerRepository;
         Context context=new Context();
-        public ExamController(IExam _exam,IQuestion _question, IStudentExamRepository _studentExamRepository,IStudentRepository _studentRepository,ICourseReprository _courseReprository)
+        public ExamController(IExam _exam,IQuestion _question, IStudentExamRepository _studentExamRepository,IStudentRepository _studentRepository,ICourseReprository _courseReprository, IRegisterRepository _registerRepository)
         {
             exam = _exam;
             question = _question;
             studentExamRepository = _studentExamRepository;
             studentRepository = _studentRepository;
             courseReprository = _courseReprository;
+            registerRepository = _registerRepository;
         }
         [Authorize(Roles = ("Instructor,Admin"))]
         public IActionResult Index()
@@ -80,6 +82,17 @@ namespace ExaminationSystemProject.Controllers
         {
             e.InstructorId = int.Parse(User.FindFirst("UserId").Value);
             int exID= exam.insertAndGetId(e);
+            int mycourseID = e.CourseId;
+          List<StudentCourse>studentCourses = registerRepository.GetStudentCoursesbyCourseID(mycourseID);
+            foreach(StudentCourse st in studentCourses)
+            {
+                Student_Exam student_Exam = new Student_Exam();
+                student_Exam.StudentID = st.StudentID;
+                student_Exam.ExamID = exID;
+                student_Exam.StudentDegree = -1;
+                studentExamRepository.Insert(student_Exam);
+            }
+
             List<Questionpool> questionpools = context.Questionpools.Where(c => c.CourseId == courseID).ToList();
             ExViewModel ex = new ExViewModel();
             ex.questionpools = new List<Questionpool>();

@@ -40,7 +40,11 @@ namespace ExaminationSystemProject.Repository
 
 
         }
-
+        public List<StudentCourse> GetStudentCoursesbyCourseID(int id)
+        {
+            List<StudentCourse> studentCourseList = context.studentCourses.Where(e => e.CourseID == id).ToList();
+            return studentCourseList;
+        }
 
 
     }

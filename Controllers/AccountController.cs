@@ -65,10 +65,10 @@ namespace ExaminationSystemProject.Controllers
                         if(await userManager.IsInRoleAsync(userModel, "Admin"))
                               return RedirectToAction("Index", "Home");
                         if (await userManager.IsInRoleAsync(userModel, "Student"))
-                            return Content("Welcome Student");
+                            return  RedirectToAction("Index", "Home");
                         if (await userManager.IsInRoleAsync(userModel, "Instructor"))
                             return RedirectToAction("Index", "Home");
-                        return Content("Welcome Not Assigned role");
+                        return  RedirectToAction("Index", "Home");
                     }
                    
                 }
@@ -139,12 +139,11 @@ namespace ExaminationSystemProject.Controllers
                     string name = User.Identity.Name;
                     if (userModel.Type == "Student")
                     {
-                        var userModel2 = await userManager.FindByNameAsync(userModel.UserName);
-                        await userManager.AddToRoleAsync(userModel2, "Student");
+                        return RedirectToAction("addstudentrole", userModel);
                     }
                     
 
-                    return RedirectToAction("Test");
+                    return RedirectToAction("Index","Home");
                 }
 
                 else
@@ -160,6 +159,15 @@ namespace ExaminationSystemProject.Controllers
             }
 
             return View(newUserVM);
+        }
+        public async Task<IActionResult>addstudentrole(ApplicationUser userModel)
+        {
+            if (userModel.Type == "Student")
+            {
+                var userModel2 = await userManager.FindByNameAsync(userModel.UserName);
+                await userManager.AddToRoleAsync(userModel2, "Student");
+            }
+            return  RedirectToAction("Index", "Home");
         }
        
         public async Task<IActionResult> Logout()
