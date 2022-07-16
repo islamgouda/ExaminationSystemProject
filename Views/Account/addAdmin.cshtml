@@ -1,4 +1,5 @@
-﻿@model ExaminationSystemProject.ViewModel.RoleViewModel
+﻿
+@model  ExaminationSystemProject.ViewModel.RoleViewModel;
 
 @{
     ViewData["Title"] = "addAdmin";
@@ -26,14 +27,17 @@
                 <span asp-validation-for="UserName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary" /><br />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-controller="Home" asp-action="Index">Back to List</a>
+    <a class="btn btn-primary" asp-controller="Home" asp-action="Index">Back to List</a><br />
+    <a class="btn btn-success" href="/Account/UsersWithRoles/1">View All Admins</a>
+     <a class="btn btn-success" href="/Account/UsersWithRoles/2">View All Instructor</a>
+      <a class="btn btn-success" href="/Account/UsersWithRoles/3">View All Students</a>
 </div>
 
 @section Scripts {

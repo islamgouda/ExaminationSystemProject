@@ -4,10 +4,10 @@
     ViewData["Title"] = "GetInstructors";
 }
 
-<h1>GetInstructors</h1>
+<h1>All Instructors Existed in The System</h1>
 
 <p>
-    <a asp-action="AddInstructor">Add Instructor</a>
+    <a class="btn btn-danger" asp-action="AddInstructor">Add Instructor</a>
 </p>
 <table class="table">
     <thead>
@@ -32,13 +32,13 @@
             </td>
             <td>
                 <div>
-                    <img src="#"  width="100" height="100">
+                    <img src="~/images/avatar2.png"  width="100" height="100">
                 </div>
             </td>
             <td>
                 <a class="btn btn-info" asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a class="btn btn-danger" asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a class="btn btn-" asp-action="DeleteInstructor" asp-route-id="@item.ID">Delete</a>
+                <a class="btn btn-success" asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                <a class="btn btn-danger" asp-action="DeleteInstructor" asp-route-id="@item.ID">Delete</a>
                 <a class="btn btn-info" asp-action="ShowInstructorCourseAndExams" asp-route-id="@item.ID">Exams&Course</a>
             </td>
         </tr>
