@@ -1,0 +1,24 @@
+﻿@model List<Exam>
+<table class="table-bordered table-hover">
+    <tr>
+        <th>ExamID</th>
+        <th>Exam Questions</th>
+        <th>Student Degrees</th>
+    </tr>
+    @{
+        foreach (var item in Model)
+        {
+            <tr>
+            <td>
+           <a>@item.Id</a> 
+            </td>
+            <td>
+            <a asp-action="getExamQuestions" asp-controller="Exam" asp-route-id="@item.Id" class="btn btn-secondary">Questions</a>
+            </td>
+             <td>
+            <a asp-action="GetExamStudentDegrees" asp-controller="Exam" asp-route-id="@item.Id" class="btn btn-danger">Degrees</a>
+            </td>
+            </tr>
+        }
+    }
+</table>

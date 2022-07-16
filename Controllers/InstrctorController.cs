@@ -192,7 +192,10 @@ namespace ExaminationSystemProject.Controllers
         }
 
 
-
+        public IActionResult Dashboard()
+        {
+            return View();
+        }
 
 
 

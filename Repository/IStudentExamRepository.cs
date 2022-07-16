@@ -14,5 +14,6 @@ namespace ExaminationSystemProject.Repository
         void Delete(int Id);
         List<Exam> GetStudentExams(int StdId);
         void SetStudentDegree(int StdID, int ExamID, int degree);
+        public List<Student_Exam> getStudentExamsByExamID(int id);
     }
 }

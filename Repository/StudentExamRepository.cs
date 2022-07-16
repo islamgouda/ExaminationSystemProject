@@ -59,7 +59,10 @@ namespace ExaminationSystemProject.Repository
             student_Exam.StudentDegree = degree;
             context.SaveChanges();
         }
-
+        public List<Student_Exam> getStudentExamsByExamID(int id)
+        {
+            return context.student_Exams.Where(e => e.ExamID == id).ToList();
+        }
 
     }
 }

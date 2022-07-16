@@ -48,6 +48,8 @@ builder.Services.AddScoped<IInstructorReposatory, InstructorRepository>();
 //=======
 builder.Services.AddScoped<IRegisterRepository, RegisterRepository>();
 builder.Services.AddScoped<IInstructorReposatory, InstructorRepository>();
+builder.Services.AddScoped<IAnswer,AnswerRepository>();
+
 
 //>>>>>>> parent of 36046e7 (test)
 
