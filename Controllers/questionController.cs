@@ -91,7 +91,7 @@ namespace ExaminationSystemProject.Controllers
             answer.ans4txt = msquestion.ans4txt;
             QuestionRepository qs = new QuestionRepository(new Context());
             question.insert(questionpool, answer);
-            return Content("saved");
+            return Redirect("Index");
         }
 
         [Authorize(Roles = ("Instructor,Admin"))]
@@ -104,7 +104,7 @@ namespace ExaminationSystemProject.Controllers
             questionpool.CourseId = tfquestion.CourseId;
             questionpool.Type = "tf";
             question.insert(questionpool);
-            return Content("Saved");
+            return Redirect("Index");
         }
 
         [Authorize(Roles = ("Instructor,Admin"))]
@@ -117,7 +117,7 @@ namespace ExaminationSystemProject.Controllers
             questionpool.CourseId = txtQuestion.CourseId;
             questionpool.Type = "txt";
             question.insert(questionpool);
-            return Content("saved");
+            return Redirect("Index");
         }
 
         [HttpGet]

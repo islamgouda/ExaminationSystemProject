@@ -5,5 +5,6 @@
         public int Degree { get; set; }
         public string ST_name { get; set; }
         public string CourseName { get; set; }
+        public string state { get; set; }
     }
 }

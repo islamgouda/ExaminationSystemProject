@@ -122,15 +122,17 @@ namespace ExaminationSystemProject.Controllers
                // }
            }
             
-            return Content("saved");
+            return Redirect("/Instrctor/Dashboard");
 
         }
+        [Authorize(Roles = ("Instructor,Admin"))]
         public IActionResult showInstructorExams()
         {
             int  id= int.Parse(User.FindFirst("UserId").Value);
            List<Exam> exams= exam.GetByInstructorID(id);
             return View(exams);
         }
+        [Authorize(Roles = ("Instructor,Admin"))]
         public IActionResult getExamQuestions(int id)
         {
             List<ExamQuestions>examQuestions=context.ExamQuestions.Where(x => x.ExamID == id).ToList();
@@ -141,7 +143,8 @@ namespace ExaminationSystemProject.Controllers
             }
             return View(questionpools);
         }
-       public IActionResult GetExamStudentDegrees(int id)
+        [Authorize(Roles = ("Instructor,Admin"))]
+        public IActionResult GetExamStudentDegrees(int id)
         {
             List<Student_Exam> student_Exams = studentExamRepository.getStudentExamsByExamID(id);
             List<studentDegreeVM> studentDegrees = new List<studentDegreeVM>();
@@ -153,7 +156,17 @@ namespace ExaminationSystemProject.Controllers
                 st.ST_name = studentRepository.Get(s.StudentID).Name;
                 Exam ex = exam.GetById(s.ExamID);
                 int exid = ex.CourseId;
-                st.CourseName = courseReprository.GetById(exid).Name;
+                Course course = courseReprository.GetById(exid);
+                st.CourseName = course.Name;
+                int mindegree = course.MinDegree;
+                if (mindegree <= st.Degree)
+                {
+                    st.state = "text-success";
+                }
+                else
+                {
+                    st.state = "text-danger";
+                }
                 studentDegrees.Add(st);
                 
             }
