@@ -1,5 +1,6 @@
 ﻿using ExaminationSystem.Reprository;
 using ExaminationSystemProject.Models;
+using ExaminationSystemProject.Reposatories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,10 +11,12 @@ namespace ExaminationSystemProject.Controllers
     public class CourseController : Controller
     {
         ICourseReprository courseReprository;
+        private readonly IInstructorReposatory instructorReposatory;
 
-        public CourseController(ICourseReprository _courseReprository)
+        public CourseController(ICourseReprository _courseReprository,IInstructorReposatory _instructorReposatory)
         {
             this.courseReprository = _courseReprository;
+            instructorReposatory = _instructorReposatory;
         }
 
 
@@ -35,6 +38,8 @@ namespace ExaminationSystemProject.Controllers
         [Authorize(Roles = ("Admin"))]
         public IActionResult Create()
         {
+            ViewData["InstrutorList"] = instructorReposatory.Getall();
+                //context.Courses.ToList();
             return View();
         }
 
@@ -45,7 +50,7 @@ namespace ExaminationSystemProject.Controllers
             if (ModelState.IsValid)
             {
                 courseReprository.Create(course);   
-                return RedirectToAction("Index");
+                return Redirect("Index");
             }
             return View(course);
         }
@@ -72,6 +77,7 @@ namespace ExaminationSystemProject.Controllers
         {
            
             Course course=courseReprository.GetById(id);
+            ViewData["InstrutorList"] = instructorReposatory.Getall();
 
             //if (course == null)
             //{
@@ -118,6 +124,7 @@ namespace ExaminationSystemProject.Controllers
             {
                 return NotFound();
             }
+            ViewData["InstrutorList"] = instructorReposatory.Getall();
 
             return View(course);
         }

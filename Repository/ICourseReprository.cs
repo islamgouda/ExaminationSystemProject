@@ -12,6 +12,7 @@ namespace ExaminationSystem.Reprository
         void Edit(int Id, Course course);
 
         void Delete(int Id);
+        public List<Course> GetCoursesByInstructorID(int id);
 
     }
 }

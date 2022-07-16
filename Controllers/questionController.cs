@@ -3,6 +3,7 @@ using ExaminationSystemProject.Repository;
 using ExaminationSystemProject.Models;
 using ExaminationSystemProject.ViewModel;
 using Microsoft.AspNetCore.Authorization;
+using ExaminationSystem.Reprository;
 
 namespace ExaminationSystemProject.Controllers
 {
@@ -12,9 +13,12 @@ namespace ExaminationSystemProject.Controllers
        
 
         private IQuestion question;
-        public questionController(IQuestion _question)
+        private readonly ICourseReprository courseReprository;
+
+        public questionController(IQuestion _question,ICourseReprository _courseReprository)
         {
             question = _question;
+            courseReprository = _courseReprository;
         }
         [Authorize(Roles = ("Instructor,Admin"))]
         public IActionResult Index()
@@ -61,7 +65,11 @@ namespace ExaminationSystemProject.Controllers
         [Authorize(Roles = ("Instructor,Admin"))]
         public IActionResult addnewquestion(string type)
         {
+            int inID = int.Parse(User.FindFirst("UserId").Value);
+            ViewData["CourseList"] = courseReprository.GetCoursesByInstructorID(inID);
+               
             if (type == "ms") {
+                
                 return View("multichoose");
             }
             else if(type=="tf")
@@ -91,6 +99,7 @@ namespace ExaminationSystemProject.Controllers
             answer.ans4txt = msquestion.ans4txt;
             QuestionRepository qs = new QuestionRepository(new Context());
             question.insert(questionpool, answer);
+
             return Redirect("Index");
         }
 

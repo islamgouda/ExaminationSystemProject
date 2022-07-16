@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Create";
+     SelectList CourseList = new SelectList(ViewBag.InstrutorList, "ID", "Name");
 }
 
 
@@ -42,7 +43,10 @@
 
      <div>
         <label asp-for="InstructorID"></label>
-        <input asp-for="InstructorID" type="number" class="form-control" />
+        <select asp-for="InstructorID" class="form-control" asp-items="CourseList" onchange="GetStudentsData()">
+        <option>--Select Instructor--</option>
+           </select>
+        
         <span asp-validation-for="InstructorID" class="text-danger"></span>
     </div>
 

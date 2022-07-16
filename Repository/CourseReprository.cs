@@ -50,6 +50,11 @@ namespace ExaminationSystem.Reprository
             return context.Courses.FirstOrDefault(x => x.ID == Id);
 
         }
+        public List<Course> GetCoursesByInstructorID(int id)
+        {
+            List<Course> co = context.Courses.Where(e => e.InstructorID == id).ToList();
+            return co;
+        }
         ////new Repository
     }
 }

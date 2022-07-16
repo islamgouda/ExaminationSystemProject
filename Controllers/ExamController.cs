@@ -72,7 +72,9 @@ namespace ExaminationSystemProject.Controllers
        // [Authorize(Roles = ("Instructor"))]
         public IActionResult createexam()
         {
-            ViewData["CourseList"] = context.Courses.ToList();
+            int inID = int.Parse(User.FindFirst("UserId").Value);
+            ViewData["CourseList"] = courseReprository.GetCoursesByInstructorID(inID);
+            
             return View();
         }
       //  [Authorize(Roles = ("Instructor"))]
