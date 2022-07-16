@@ -66,7 +66,7 @@ namespace ExaminationSystemProject.Controllers
                         await signInManager.SignInWithClaimsAsync(userModel, isPersistent: false, claims);
                         string name = User.Identity.Name;
                         if(await userManager.IsInRoleAsync(userModel, "Admin"))
-                              return RedirectToAction("Index", "Home");
+                              return RedirectToAction("adminDash", "Instrctor");
                         if (await userManager.IsInRoleAsync(userModel, "Student"))
                             return RedirectToAction("Index", "Home");
                         if (await userManager.IsInRoleAsync(userModel, "Instructor"))
@@ -145,9 +145,9 @@ namespace ExaminationSystemProject.Controllers
                         var userModel2 = await userManager.FindByNameAsync(userModel.UserName);
                         await userManager.AddToRoleAsync(userModel2, "Student");
                     }
-                    
 
-                    return RedirectToAction("Test");
+
+                    return RedirectToAction("Index", "Home");
                 }
 
                 else
