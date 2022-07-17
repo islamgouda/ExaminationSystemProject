@@ -194,7 +194,7 @@ namespace ExaminationSystemProject.Controllers
             //int id= RNew.UserID;
             var userModel2 =await userManager.FindByNameAsync(RNew.UserName) ;
             await userManager.AddToRoleAsync(userModel2, RNew.RoleName);
-            return Content("Saved");
+            return Redirect("/Instrctor/adminDash");
 
         }
         [Authorize(Roles = ("Admin"))]
@@ -203,7 +203,7 @@ namespace ExaminationSystemProject.Controllers
         {
             return View();
         }
-
+        
         public ActionResult UsersWithRoles(int id)
         {
             RolesViewWithUsers rolesViewWithUsers = new RolesViewWithUsers();
